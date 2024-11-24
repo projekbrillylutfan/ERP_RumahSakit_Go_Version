@@ -8,4 +8,7 @@ import (
 
 type UserRepository interface {
 	CreateUserRepository(ctx context.Context, user *entity.User) *entity.User
+	FindByIdUserRepo(ctx context.Context, id int64) (*entity.User, error)
+	FindAllUserRepo(ctx context.Context) []*entity.User
+	FindByUsernamePhoneAndEmail(ctx context.Context, username string, phone string, email string) (*entity.User, error)
 }

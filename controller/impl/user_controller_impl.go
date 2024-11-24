@@ -21,11 +21,11 @@ func NewUserControllerImpl(userService service.UserService, config configuration
 	}
 }
 
-func (controller *UserControllerImpl) GetConfig() configuration.Config{
+func (controller *UserControllerImpl) GetConfig() configuration.Config {
 	return controller.Config
 }
 
-func (ct *UserControllerImpl)CreateUserController(c *fiber.Ctx) error {
+func (ct *UserControllerImpl) CreateUserController(c *fiber.Ctx) error {
 	var request *dto.UserCreateOrUpdateRequest
 	err := c.BodyParser(&request)
 	exception.PanicLogging(err)
@@ -35,5 +35,25 @@ func (ct *UserControllerImpl)CreateUserController(c *fiber.Ctx) error {
 		Code:    200,
 		Message: "success create user",
 		Data:    request,
+	})
+}
+
+func (ct *UserControllerImpl) FindByIdUserController(c *fiber.Ctx) error {
+	id := c.Params("id")
+	idInt64 := exception.ConversionErrorStrconv(id)
+	result := ct.UserService.FindByIdUserService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find user by id",
+		Data:    result,
+	})
+}
+
+func (ct *UserControllerImpl)FindAllUserController(c *fiber.Ctx) error {
+	result := ct.UserService.FindAllUserService(c.Context())
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find all user",
+		Data:    result,
 	})
 }

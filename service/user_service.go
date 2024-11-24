@@ -8,4 +8,6 @@ import (
 
 type UserService interface {
 	CreateUserService(ctx context.Context, user *dto.UserCreateOrUpdateRequest) *dto.UserCreateOrUpdateRequest
+	FindByIdUserService(ctx context.Context, id int64) *dto.UserFindByIdReponse
+	FindAllUserService(ctx context.Context) []*dto.UserFindAllReponse
 }

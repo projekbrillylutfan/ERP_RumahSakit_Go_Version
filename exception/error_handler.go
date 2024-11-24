@@ -30,6 +30,15 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 		})
 	}
 
+	_, conflictError := err.(ConflictError)
+	if conflictError {
+		return ctx.Status(fiber.StatusConflict).JSON(&dto.GeneralResponseError{
+			Code:    409,
+			Message: "Unique Constraint Violation",
+			Error:   err.Error(),
+		})
+	}
+
 	_, conversionError := err.(ConversionError)
 	if conversionError {
 		return ctx.Status(fiber.StatusBadRequest).JSON(&dto.GeneralResponseError{
