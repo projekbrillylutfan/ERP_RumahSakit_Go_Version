@@ -59,3 +59,9 @@ func NewDatabase(config configuration.Config) *gorm.DB {
 
 	return db
 }
+
+// migrate create -ext sql -dir db/migrations create_table_first
+// migrate -database "postgres://postgres:admin@localhost:5432/erp_rumah_sakit_go_version?sslmode=disable" -path db/migrations up
+// migrate -database "postgres://postgres:admin@localhost:5432/erp_rumah_sakit_go_version?sslmode=disable" -path db/migrations down
+// migrate -database "postgres://postgres:admin@localhost:5432/erp_rumah_sakit_go_version?sslmode=disable" -path db/migrations version
+// migrate -database "postgres://postgres:admin@localhost:5432/erp_rumah_sakit_go_version?sslmode=disable" -path db/migrations force 20241115032443

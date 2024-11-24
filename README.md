@@ -37,13 +37,18 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 
 ## Entitas dan Atribut
 
-### 1. Pasien
-- **ID Pasien**: int
-- **Nama**: string
-- **Alamat**: string
+### 1. User
+- **ID User**: int auto increment
+- **Nama**: string not null
+- **Alamat**: text 
+- **Username**: string unik
+- **Email**: string unik
+- **Password**: string
+- **Role**: enum
+- **is email verifed**: boolean
 - **Tanggal Lahir**: date
 - **Jenis Kelamin**: string
-- **Nomor Telepon**: string
+- **Nomor Telepon**: string unik
 - **Created At**: date
 - **Update At**: date
 
