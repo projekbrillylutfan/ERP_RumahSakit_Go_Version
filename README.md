@@ -44,6 +44,8 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 - **Tanggal Lahir**: date
 - **Jenis Kelamin**: string
 - **Nomor Telepon**: string
+- **Created At**: date
+- **Update At**: date
 
 ### 2. Dokter
 - **ID Dokter**: int
