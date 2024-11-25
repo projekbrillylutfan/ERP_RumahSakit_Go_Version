@@ -76,3 +76,21 @@ func (r *UserRepositoryImpl) MarkUserEmailVerified(ctx context.Context, userID i
 	}
 	return nil
 }
+
+func (r *UserRepositoryImpl) FindByEmail(ctx context.Context, email string) (*entity.User, error) {
+	var user *entity.User
+	result := r.DB.WithContext(ctx).Where("email = ?", email).First(&user)
+	if result.RowsAffected == 0 {
+		return &entity.User{}, errors.New("email not found")
+	}
+	return user, nil
+}
+
+func (r *UserRepositoryImpl) AuthenticationRepo(ctx context.Context, username string) (*entity.User, error) {
+	var user *entity.User
+	result := r.DB.WithContext(ctx).Where("username = ?", username).First(&user)
+	if result.RowsAffected == 0 {
+		return &entity.User{}, errors.New("user not found")
+	}
+	return user, nil
+}

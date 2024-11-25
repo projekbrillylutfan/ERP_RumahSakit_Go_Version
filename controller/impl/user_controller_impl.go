@@ -115,3 +115,17 @@ func (ct *UserControllerImpl) VerifyEmail(c *fiber.Ctx) error {
 		Message: "success verify email",
 	})
 }
+
+func (ct *UserControllerImpl) LoginUserController(c *fiber.Ctx) error {
+	var request *dto.UserLogin
+	err := c.BodyParser(&request)
+	exception.PanicLogging(err)
+
+	result := ct.UserService.Authentication(c.Context(), request)
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code: 200,
+		Message: "success login user",
+		Data: result,
+	})
+}

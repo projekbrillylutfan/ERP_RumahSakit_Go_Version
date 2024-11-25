@@ -14,4 +14,5 @@ type UserService interface {
 	DeleteUserService(ctx context.Context, id int64)
 	RegisterUserService(ctx context.Context, user *dto.UserCreateOrUpdateRequestRegister) *dto.UserCreateOrUpdateRequestRegister
 	VerifyEmailService(ctx context.Context, token string) error
+	Authentication(ctx context.Context, model *dto.UserLogin) string
 }

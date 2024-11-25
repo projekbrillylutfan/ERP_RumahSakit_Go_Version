@@ -224,3 +224,25 @@ func (s *UserServiceImpl) VerifyEmailService(ctx context.Context, token string) 
 	s.RedisService.Del(ctx, tokenKey)
 	return nil
 }
+
+func (s *UserServiceImpl) Authentication(ctx context.Context, model *dto.UserLogin) string {
+	configuration.Validate(model)
+	user, err := s.UserRepository.AuthenticationRepo(ctx, model.Username)
+	if err != nil {
+		panic(exception.UnauthorizedError{
+			Message: err.Error(),
+		})
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(model.Password))
+
+	if err != nil {
+		panic(exception.UnauthorizedError{
+			Message: "usename or password is incorrect",
+		})
+	}
+
+	tokenJwtResult := utils.GenerateTokenJWT(user.Username, user.Role, s.Config)
+
+	return tokenJwtResult
+}

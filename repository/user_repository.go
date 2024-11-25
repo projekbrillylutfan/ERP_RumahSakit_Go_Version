@@ -15,4 +15,6 @@ type UserRepository interface {
 	DeleteUserRepo(ctx context.Context, user *entity.User)
 	RegisterUserRepo(ctx context.Context, user *entity.User) *entity.User
 	MarkUserEmailVerified(ctx context.Context, userID int64) error
+	FindByEmail(ctx context.Context, email string) (*entity.User, error)
+	AuthenticationRepo(ctx context.Context, username string) (*entity.User, error)
 }

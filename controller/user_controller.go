@@ -13,6 +13,7 @@ type UserController interface {
 	DeleteUserController(c *fiber.Ctx) error
 	RegisterUserController(c *fiber.Ctx) error
 	VerifyEmail(ctx *fiber.Ctx) error
+	LoginUserController(c *fiber.Ctx) error
 
 
 	GetConfig() configuration.Config
