@@ -68,3 +68,11 @@ func (r *UserRepositoryImpl) RegisterUserRepo(ctx context.Context, user *entity.
 	exception.PanicLogging(err)
 	return user
 }
+
+func (r *UserRepositoryImpl) MarkUserEmailVerified(ctx context.Context, userID int64) error {
+	err := r.DB.WithContext(ctx).Model(&entity.User{}).Where("id_user = ?", userID).Update("is_email_verified", true).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

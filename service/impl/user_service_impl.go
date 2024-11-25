@@ -3,6 +3,7 @@ package impl_service
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/configuration"
@@ -201,4 +202,25 @@ func (s *UserServiceImpl) RegisterUserService(ctx context.Context, user *dto.Use
 
 	userRegister.Password = ""
 	return user
+}
+
+func (s *UserServiceImpl) VerifyEmailService(ctx context.Context, token string) error {
+	tokenKey := fmt.Sprintf("email_verification:%s", token)
+
+	userID, err := s.RedisService.Get(ctx, tokenKey)
+	if err != nil {
+		panic(exception.UnauthorizedError{
+			Message: "invalid or expired token",
+		})
+	}
+
+	id, _ := strconv.ParseInt(userID, 10, 64)
+
+	err = s.UserRepository.MarkUserEmailVerified(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	s.RedisService.Del(ctx, tokenKey)
+	return nil
 }

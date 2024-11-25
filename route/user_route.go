@@ -19,4 +19,5 @@ func UserRoute(app *fiber.App, ct controller.UserController) {
 	userGroup := app.Group("/api/user")
 
 	userGroup.Post("/register", ct.RegisterUserController)
+	userGroup.Get("/verify-email", ct.VerifyEmail)
 }

@@ -14,4 +14,5 @@ type UserRepository interface {
 	UpdateUserRepo(ctx context.Context, user *entity.User) *entity.User
 	DeleteUserRepo(ctx context.Context, user *entity.User)
 	RegisterUserRepo(ctx context.Context, user *entity.User) *entity.User
+	MarkUserEmailVerified(ctx context.Context, userID int64) error
 }

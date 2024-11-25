@@ -98,3 +98,20 @@ func (ct *UserControllerImpl) RegisterUserController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *UserControllerImpl) VerifyEmail(c *fiber.Ctx) error {
+	token := c.Query("token")
+	if token == "" {
+		return fiber.NewError(fiber.StatusBadRequest, "Token is required")
+	}
+
+	err := ct.UserService.VerifyEmailService(c.Context(), token)
+	if err != nil {
+		return fiber.NewError(fiber.StatusUnauthorized, err.Error())
+	}
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success verify email",
+	})
+}
