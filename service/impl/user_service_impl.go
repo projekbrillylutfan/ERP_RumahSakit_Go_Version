@@ -46,6 +46,7 @@ func (s *UserServiceImpl)CreateUserService(ctx context.Context, user *dto.UserCr
 		Username: user.Username,
 		Email: user.Email,
 		Password: string(hashedPassword),
+		Role: user.Role,
 		TanggalLahir: user.TanggalLahir,
 		JenisKelamin: user.JenisKelamin,
 		NomorTelepon: user.NomorTelepon,
