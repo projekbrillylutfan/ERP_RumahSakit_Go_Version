@@ -30,6 +30,7 @@ func main() {
 	mailDialer := gomail.NewDialer("smtp.mailtrap.io", 587, username, password)
 
 	// seed admin user
+	app.SeedAdminUser(database)
 
 	// init user repo
 	userRepository := impl_repository.NewUserRepository(database)
