@@ -12,4 +12,5 @@ func UserRouteAdmin(app *fiber.App, ct controller.UserController) {
 	userAdminGroup.Get("/", ct.FindAllUserController)
 	userAdminGroup.Get("/:id", ct.FindByIdUserController)
 	userAdminGroup.Put("/:id", ct.UpdateUserController)
+	userAdminGroup.Delete("/:id", ct.DeleteUserController)
 }

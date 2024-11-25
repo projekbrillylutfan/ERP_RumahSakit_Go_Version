@@ -57,3 +57,8 @@ func (r *UserRepositoryImpl) UpdateUserRepo(ctx context.Context, user *entity.Us
 	exception.PanicLogging(err)
 	return user
 }
+
+func (r *UserRepositoryImpl) DeleteUserRepo(ctx context.Context, user *entity.User) {
+	err := r.DB.WithContext(ctx).Delete(&user).Error
+	exception.PanicLogging(err)
+}

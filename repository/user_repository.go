@@ -12,4 +12,5 @@ type UserRepository interface {
 	FindAllUserRepo(ctx context.Context) []*entity.User
 	FindByUsernamePhoneAndEmail(ctx context.Context, username, phone, email string) (*entity.User, error)
 	UpdateUserRepo(ctx context.Context, user *entity.User) *entity.User
+	DeleteUserRepo(ctx context.Context, user *entity.User)
 }

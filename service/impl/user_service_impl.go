@@ -142,3 +142,13 @@ func (s *UserServiceImpl) UpdateUserService(ctx context.Context, user *dto.UserC
 		NomorTelepon: result.NomorTelepon,
 	}
 }
+
+func (s *UserServiceImpl) DeleteUserService(ctx context.Context, id int64) {
+	result, err := s.UserRepository.FindByIdUserRepo(ctx, id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+	s.UserRepository.DeleteUserRepo(ctx, result)
+}
