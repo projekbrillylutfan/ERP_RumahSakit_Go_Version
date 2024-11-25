@@ -6,7 +6,7 @@ import (
 )
 
 func UserRouteAdmin(app *fiber.App, ct controller.UserController) {
-	userAdminGroup := app.Group("/api/user")
+	userAdminGroup := app.Group("/api/admin/user")
 
 	userAdminGroup.Post("/", ct.CreateUserController)
 	userAdminGroup.Get("/", ct.FindAllUserController)
