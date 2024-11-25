@@ -48,3 +48,12 @@ type UserLogin struct {
 	Username string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
 }
+
+type ForgotPassword struct {
+	Email string `json:"email" validate:"required"`
+}
+
+type ResetPassword struct {
+	Token string `json:"token" validate:"required"`
+	PasswordNew string `json:"password_new" validate:"required"`
+}

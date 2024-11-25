@@ -129,3 +129,39 @@ func (ct *UserControllerImpl) LoginUserController(c *fiber.Ctx) error {
 		Data: result,
 	})
 }
+
+func (ct *UserControllerImpl) ForgotPassword(c *fiber.Ctx) error {
+	var request *dto.ForgotPassword
+
+	if err := c.BodyParser(&request); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	err := ct.UserService.ForgotPasswordService(c.Context(), request)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "Password reset link sent to your email!",
+	})
+}
+
+func (ct *UserControllerImpl) ResetPassword(c *fiber.Ctx) error {
+	var request *dto.ResetPassword
+
+	if err := c.BodyParser(&request); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	err := ct.UserService.ResetPasswordService(c.Context(), request)
+	if err != nil {
+		return fiber.NewError(fiber.StatusUnauthorized, err.Error())
+	}
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success reset password",
+	})
+}

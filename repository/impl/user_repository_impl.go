@@ -94,3 +94,8 @@ func (r *UserRepositoryImpl) AuthenticationRepo(ctx context.Context, username st
 	}
 	return user, nil
 }
+
+func (r *UserRepositoryImpl) UpdatePassword(ctx context.Context, userID int64, hashedPassword string) error {
+	result := r.DB.WithContext(ctx).Model(&entity.User{}).Where("id_user = ?", userID).Update("password", hashedPassword)
+	return result.Error
+}

@@ -17,4 +17,5 @@ type UserRepository interface {
 	MarkUserEmailVerified(ctx context.Context, userID int64) error
 	FindByEmail(ctx context.Context, email string) (*entity.User, error)
 	AuthenticationRepo(ctx context.Context, username string) (*entity.User, error)
+	UpdatePassword(ctx context.Context, userID int64, hashedPassword string) error
 }

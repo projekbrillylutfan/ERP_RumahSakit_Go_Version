@@ -22,4 +22,6 @@ func UserRoute(app *fiber.App, ct controller.UserController) {
 	userGroup.Post("/register", ct.RegisterUserController)
 	userGroup.Get("/verify-email", ct.VerifyEmail)
 	userGroup.Post("/login", ct.LoginUserController)
+	userGroup.Post("/forgot-password", ct.ForgotPassword)
+	userGroup.Post("/reset-password", ct.ResetPassword)
 }

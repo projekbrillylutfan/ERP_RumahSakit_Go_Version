@@ -15,4 +15,6 @@ type UserService interface {
 	RegisterUserService(ctx context.Context, user *dto.UserCreateOrUpdateRequestRegister) *dto.UserCreateOrUpdateRequestRegister
 	VerifyEmailService(ctx context.Context, token string) error
 	Authentication(ctx context.Context, model *dto.UserLogin) string
+	ForgotPasswordService(ctx context.Context, request *dto.ForgotPassword) error
+	ResetPasswordService(ctx context.Context, request *dto.ResetPassword) error
 }

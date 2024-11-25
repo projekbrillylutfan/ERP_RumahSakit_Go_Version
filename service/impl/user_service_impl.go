@@ -246,3 +246,58 @@ func (s *UserServiceImpl) Authentication(ctx context.Context, model *dto.UserLog
 
 	return tokenJwtResult
 }
+
+func (s *UserServiceImpl) ForgotPasswordService(ctx context.Context, request *dto.ForgotPassword) error {
+	configuration.Validate(request)
+	user, err := s.FindByEmail(ctx, request.Email)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+
+	token := utils.GenerateToken(16)
+
+	tokenKey := fmt.Sprintf("reset_password:%s", token)
+	err = s.RedisService.Set(ctx, tokenKey, user.ID, time.Minute*15)
+	if err != nil {
+		return err
+	}
+
+	fromEmail := "ayam@example.com"
+	toEmail := user.Email
+	name := user.Nama
+	tokenEmail := token
+
+	err = utils.SendVerificationEmail(s.MailDialer, fromEmail, toEmail, name, tokenEmail)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *UserServiceImpl) ResetPasswordService(ctx context.Context, request *dto.ResetPassword) error {
+	configuration.Validate(request)
+	tokenKey := fmt.Sprintf("reset_password:%s", request.Token)
+	userID, err := s.RedisService.Get(ctx, tokenKey)
+	if err != nil {
+		panic(exception.UnauthorizedError{
+			Message: "invalid or expired token",
+		})
+	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(request.PasswordNew), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+
+	id, _ := strconv.ParseInt(userID, 10, 64)
+	err = s.UserRepository.UpdatePassword(ctx, id, string(hashedPassword))
+	if err != nil {
+		return err
+	}
+
+	s.RedisService.Del(ctx, tokenKey)
+	return nil
+}
