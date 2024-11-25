@@ -2,6 +2,8 @@ package impl_service
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/configuration"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/exception"
@@ -9,6 +11,7 @@ import (
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/model/entity"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/repository"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/service"
+	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/utils"
 	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/gomail.v2"
 )
@@ -151,4 +154,51 @@ func (s *UserServiceImpl) DeleteUserService(ctx context.Context, id int64) {
 		})
 	}
 	s.UserRepository.DeleteUserRepo(ctx, result)
+}
+
+func (s *UserServiceImpl) RegisterUserService(ctx context.Context, user *dto.UserCreateOrUpdateRequestRegister) *dto.UserCreateOrUpdateRequestRegister {
+	var token string
+	configuration.Validate(user)
+
+	_, err := s.UserRepository.FindByUsernamePhoneAndEmail(ctx, user.Username, user.NomorTelepon, user.Email)
+	if err != nil {
+		panic(exception.ConflictError{
+			Message: err.Error(),
+		})
+	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	exception.PanicLogging(err)
+
+	userRegister := &entity.User{
+		Nama: user.Nama,
+		Alamat: user.Alamat,
+		Username: user.Username,
+		Email: user.Email,
+		Password: string(hashedPassword),
+		TanggalLahir: user.TanggalLahir,
+		JenisKelamin: user.JenisKelamin,
+		NomorTelepon: user.NomorTelepon,
+	}
+
+	s.UserRepository.RegisterUserRepo(ctx, userRegister)
+
+	token = utils.GenerateToken(16)
+
+	tokenKey := fmt.Sprintf("email_verification:%s", token)
+	err = s.RedisService.Set(ctx, tokenKey, userRegister.ID, time.Minute*15)
+	exception.PanicLogging(err)
+
+	fromEmail := "ayam@example.com"
+	toEmail := userRegister.Email
+	name := userRegister.Nama
+	tokenEmail := token
+
+	err = utils.SendVerificationEmail(s.MailDialer, fromEmail, toEmail, name, tokenEmail)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	userRegister.Password = ""
+	return user
 }

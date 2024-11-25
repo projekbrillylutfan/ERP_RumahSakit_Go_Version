@@ -46,8 +46,10 @@ func main() {
 	app.Use(recover.New())
 	app.Use(cors.New())
 
-	// init route user
+	// init route user admin
 	route.UserRouteAdmin(app, userController)
+	// init route user
+	route.UserRoute(app, userController)
 
 	// server run 
 	err := app.Listen(config.Get("SERVER_PORT"))

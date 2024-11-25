@@ -85,3 +85,16 @@ func (ct *UserControllerImpl) DeleteUserController(c *fiber.Ctx) error {
 		Message: "success delete user",
 	})
 }
+
+func (ct *UserControllerImpl) RegisterUserController(c *fiber.Ctx) error {
+	var request *dto.UserCreateOrUpdateRequestRegister
+	err := c.BodyParser(&request)
+	exception.PanicLogging(err)
+
+	result := ct.UserService.RegisterUserService(c.Context(), request)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success register user, please check your email for verification",
+		Data:    result,
+	})
+}

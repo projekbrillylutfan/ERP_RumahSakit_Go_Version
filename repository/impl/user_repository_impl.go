@@ -62,3 +62,9 @@ func (r *UserRepositoryImpl) DeleteUserRepo(ctx context.Context, user *entity.Us
 	err := r.DB.WithContext(ctx).Delete(&user).Error
 	exception.PanicLogging(err)
 }
+
+func (r *UserRepositoryImpl) RegisterUserRepo(ctx context.Context, user *entity.User) *entity.User {
+	err := r.DB.WithContext(ctx).Create(&user).Error
+	exception.PanicLogging(err)
+	return user
+}

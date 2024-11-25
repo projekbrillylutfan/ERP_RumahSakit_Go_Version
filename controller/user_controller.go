@@ -11,6 +11,7 @@ type UserController interface {
 	FindAllUserController(c *fiber.Ctx) error
 	UpdateUserController(c *fiber.Ctx) error
 	DeleteUserController(c *fiber.Ctx) error
+	RegisterUserController(c *fiber.Ctx) error
 
 
 	GetConfig() configuration.Config

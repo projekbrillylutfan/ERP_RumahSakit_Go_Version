@@ -14,3 +14,9 @@ func UserRouteAdmin(app *fiber.App, ct controller.UserController) {
 	userAdminGroup.Put("/:id", ct.UpdateUserController)
 	userAdminGroup.Delete("/:id", ct.DeleteUserController)
 }
+
+func UserRoute(app *fiber.App, ct controller.UserController) {
+	userGroup := app.Group("/api/user")
+
+	userGroup.Post("/register", ct.RegisterUserController)
+}
