@@ -51,3 +51,9 @@ func (r *UserRepositoryImpl) FindByUsernamePhoneAndEmail(ctx context.Context, us
 
 	return &user, nil
 }
+
+func (r *UserRepositoryImpl) UpdateUserRepo(ctx context.Context, user *entity.User) *entity.User {
+	err := r.DB.WithContext(ctx).Where("id_user = ?", user.ID).Updates(user).Error
+	exception.PanicLogging(err)
+	return user
+}

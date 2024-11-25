@@ -9,6 +9,7 @@ type UserController interface {
 	CreateUserController(c *fiber.Ctx) error
 	FindByIdUserController(c *fiber.Ctx) error
 	FindAllUserController(c *fiber.Ctx) error
+	UpdateUserController(c *fiber.Ctx) error
 
 
 	GetConfig() configuration.Config

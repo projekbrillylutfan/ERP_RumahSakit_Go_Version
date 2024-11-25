@@ -49,11 +49,27 @@ func (ct *UserControllerImpl) FindByIdUserController(c *fiber.Ctx) error {
 	})
 }
 
-func (ct *UserControllerImpl)FindAllUserController(c *fiber.Ctx) error {
+func (ct *UserControllerImpl) FindAllUserController(c *fiber.Ctx) error {
 	result := ct.UserService.FindAllUserService(c.Context())
 	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
 		Code:    200,
 		Message: "success find all user",
 		Data:    result,
+	})
+}
+
+func (ct *UserControllerImpl) UpdateUserController(c *fiber.Ctx) error {
+	var request *dto.UserCreateOrUpdateRequest
+	id := c.Params("id")
+	err := c.BodyParser(&request)
+	exception.PanicLogging(err)
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	ct.UserService.UpdateUserService(c.Context(), request, idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success update user",
+		Data:    request,
 	})
 }

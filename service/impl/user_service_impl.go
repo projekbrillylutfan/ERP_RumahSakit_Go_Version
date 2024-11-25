@@ -94,3 +94,51 @@ func (s *UserServiceImpl) FindAllUserService(ctx context.Context) (responses []*
 
 	return responses
 }
+
+func (s *UserServiceImpl) UpdateUserService(ctx context.Context, user *dto.UserCreateOrUpdateRequest, id int64) *dto.UserCreateOrUpdateRequest {
+	configuration.Validate(user)
+
+	_, err := s.UserRepository.FindByIdUserRepo(ctx, id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+
+	_, err = s.UserRepository.FindByUsernamePhoneAndEmail(ctx, user.Username, user.NomorTelepon, user.Email)
+	if err != nil {
+		panic(exception.ConflictError{
+			Message: err.Error(),
+		})
+	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	exception.PanicLogging(err)
+
+	userUpdate := &entity.User{
+		ID: id,
+		Nama: user.Nama,
+		Alamat: user.Alamat,
+		Username: user.Username,
+		Email: user.Email,
+		Password: string(hashedPassword),
+		Role: user.Role,
+		TanggalLahir: user.TanggalLahir,
+		JenisKelamin: user.JenisKelamin,
+		NomorTelepon: user.NomorTelepon,
+	}
+
+	result := s.UserRepository.UpdateUserRepo(ctx, userUpdate)
+
+	return &dto.UserCreateOrUpdateRequest{
+		Nama: result.Nama,
+		Alamat: result.Alamat,
+		Username: result.Username,
+		Email: result.Email,
+		Password: result.Password,
+		Role: result.Role,
+		TanggalLahir: result.TanggalLahir,
+		JenisKelamin: result.JenisKelamin,
+		NomorTelepon: result.NomorTelepon,
+	}
+}
