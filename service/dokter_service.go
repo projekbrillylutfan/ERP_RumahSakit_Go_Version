@@ -7,5 +7,6 @@ import (
 )
 
 type DokterService interface {
-	CreateDokterService(ctx context.Context, dokter *dto.DokterCreateOrUpdaeRequest) *dto.DokterCreateOrUpdaeRequest 
+	CreateDokterService(ctx context.Context, dokter *dto.DokterCreateOrUpdaeRequest) *dto.DokterCreateOrUpdaeRequest
+	FindAllDokterService(ctx context.Context) []*dto.DokterFindAllResponse
 }

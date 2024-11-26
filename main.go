@@ -55,6 +55,8 @@ func main() {
 	route.UserRoute(app, userController)
 	// init route dokter admin
 	route.DokterRouteAdmin(app, dokterController)
+	// init route dokter
+	route.DokterRoute(app, dokterController)
 
 	// server run 
 	err := app.Listen(config.Get("SERVER_PORT"))

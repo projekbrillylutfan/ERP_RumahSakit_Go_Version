@@ -37,3 +37,13 @@ func (ct *DokterControllerImpl) CreateDokterController(c *fiber.Ctx) error {
 		Data:    request,
 	})
 }
+
+func (ct *DokterControllerImpl) FindAllDokterController(c *fiber.Ctx) error {
+	result := ct.DokterService.FindAllDokterService(c.Context())
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find all dokter",
+		Data:    result,
+	})
+}

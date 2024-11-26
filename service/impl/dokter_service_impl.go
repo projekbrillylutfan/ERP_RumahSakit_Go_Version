@@ -53,3 +53,21 @@ func (s *DokterServiceImpl) CreateDokterService(ctx context.Context, dokter *dto
 	dokterCreate.Password = ""
 	return dokter
 }
+
+func (s *DokterServiceImpl) FindAllDokterService(ctx context.Context) (responses []*dto.DokterFindAllResponse) {
+	dokters := s.DokterRepository.FindAllDokterRepository(ctx)
+
+	for _, dokter := range dokters {
+		responses = append(responses, &dto.DokterFindAllResponse{
+			ID: dokter.ID,
+			Nama: dokter.Nama,
+			Spesialisasi: dokter.Spesialisasi,
+		})
+	}
+
+	if len(responses) == 0 {
+		return nil
+	}
+
+	return responses
+}

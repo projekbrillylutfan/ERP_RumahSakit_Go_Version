@@ -11,3 +11,9 @@ func DokterRouteAdmin(app *fiber.App, ct controller.DokterController) {
 
 	dokterGroupAdmin.Post("/", ct.CreateDokterController)
 }
+
+func DokterRoute(app *fiber.App, ct controller.DokterController) {
+	dokterGroup := app.Group("/api/dokter")
+
+	dokterGroup.Get("/", ct.FindAllDokterController)
+}

@@ -9,4 +9,5 @@ import (
 type DokterRepository interface {
 	CreateDokterRepository(ctx context.Context, dokter *entity.Dokter) *entity.Dokter
 	FindByEmailDokterRepository(ctx context.Context, email string) (*entity.Dokter, error)
+	FindAllDokterRepository(ctx context.Context) []*entity.Dokter
 }

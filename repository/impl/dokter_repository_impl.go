@@ -36,3 +36,9 @@ func (r *DokterRepositoryImpl) FindByEmailDokterRepository(ctx context.Context, 
 
 	return dokter, nil
 }
+
+func (r *DokterRepositoryImpl) FindAllDokterRepository(ctx context.Context) []*entity.Dokter {
+	var dokters []*entity.Dokter
+	r.DB.WithContext(ctx).Find(&dokters)
+	return dokters
+}
