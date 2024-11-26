@@ -55,9 +55,14 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 ### 2. Dokter
 - **ID Dokter**: int
 - **Nama**: string
+- **Email**: string unik
+- **Password**: string
+- **Role**: enum
+- **is email verifed**: boolean
 - **Spesialisasi**: string
 - **Nomor Telepon**: string
-- **Alamat Email**: string
+- **Created At**: date
+- **Update At**: date
 
 ### 3. Perawat
 - **ID Perawat**: int
