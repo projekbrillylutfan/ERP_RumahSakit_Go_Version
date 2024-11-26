@@ -71,3 +71,22 @@ func (s *DokterServiceImpl) FindAllDokterService(ctx context.Context) (responses
 
 	return responses
 }
+
+func (s *DokterServiceImpl) FindByIdDokterService(ctx context.Context, id int64) *dto.DokterFindByIdResponse {
+	dokterId, err := s.DokterRepository.FindByIdDokterRepository(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	return &dto.DokterFindByIdResponse{
+		ID: dokterId.ID,
+		Nama: dokterId.Nama,
+		Email: dokterId.Email,
+		Spesialisasi: dokterId.Spesialisasi,
+		NomorTelepon: dokterId.NomorTelepon,
+	}
+}

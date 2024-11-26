@@ -42,3 +42,12 @@ func (r *DokterRepositoryImpl) FindAllDokterRepository(ctx context.Context) []*e
 	r.DB.WithContext(ctx).Find(&dokters)
 	return dokters
 }
+
+func (r *DokterRepositoryImpl) FindByIdDokterRepository(ctx context.Context, id int64) (*entity.Dokter, error) {
+	var dokter *entity.Dokter
+	result := r.DB.WithContext(ctx).Where("id_dokter = ?", id).First(&dokter)
+	if result.RowsAffected == 0 {
+		return nil, errors.New("dokter not found")
+	}
+	return dokter, nil
+}

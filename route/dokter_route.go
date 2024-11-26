@@ -16,4 +16,5 @@ func DokterRoute(app *fiber.App, ct controller.DokterController) {
 	dokterGroup := app.Group("/api/dokter")
 
 	dokterGroup.Get("/", ct.FindAllDokterController)
+	dokterGroup.Get("/:id", ct.FindByIdDokerController)
 }
