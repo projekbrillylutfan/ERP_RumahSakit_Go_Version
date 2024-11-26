@@ -34,12 +34,15 @@ func main() {
 
 	// init user repo
 	userRepository := impl_repository.NewUserRepository(database)
+	dokterRepository := impl_repository.NewDokterRepositoryImpl(database)
 
 	// init user service
 	userService := impl_service.NewUserServiceImpl(&userRepository, &config, redisService, mailDialer)
+	dokterService := impl_service.NewDokterServiceImpl(&dokterRepository, &config, redisService, mailDialer)
 
 	// init user controller
 	userController := impl_controller.NewUserControllerImpl(userService, config)
+	dokterController := impl_controller.NewDokterControllerImpl(dokterService, config)
 
 	// init fiber
 	app := fiber.New(configuration.NewFiberConfiguration())
@@ -50,6 +53,8 @@ func main() {
 	route.UserRouteAdmin(app, userController)
 	// init route user
 	route.UserRoute(app, userController)
+	// init route dokter admin
+	route.DokterRouteAdmin(app, dokterController)
 
 	// server run 
 	err := app.Listen(config.Get("SERVER_PORT"))

@@ -46,7 +46,7 @@ func (r *UserRepositoryImpl) FindByUsernamePhoneAndEmail(ctx context.Context, us
 	result := r.DB.WithContext(ctx).Where("username = ? OR nomor_telepon = ? OR email = ?", username, phone, email).First(&user)
 
 	if result.RowsAffected != 0 {
-		return nil, errors.New("ada 3 field yang unique, tebak sendiri request mana yang kagak unique, saya malas dan saya bangga") // Kembalikan error jika tidak ada data yang cocok
+		return nil, errors.New("user already exists") // Kembalikan error jika tidak ada data yang cocok
 	}
 
 	return &user, nil
