@@ -76,3 +76,15 @@ func (ct *DokterControllerImpl) UpdateDokterController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *DokterControllerImpl) DeleteDokterController(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	ct.DokterService.DeleteDokterService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success delete dokter",
+	})
+}

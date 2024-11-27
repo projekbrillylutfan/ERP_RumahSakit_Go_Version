@@ -57,3 +57,8 @@ func (r *DokterRepositoryImpl) UpdateDokterRepository(ctx context.Context, dokte
 	exception.PanicLogging(err)
 	return dokter
 }
+
+func (r *DokterRepositoryImpl) DeleteDokterRepository(ctx context.Context, dokter *entity.Dokter) {
+	err := r.DB.WithContext(ctx).Delete(&dokter).Error
+	exception.PanicLogging(err)
+}

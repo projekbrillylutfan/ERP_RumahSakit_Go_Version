@@ -11,6 +11,7 @@ func DokterRouteAdmin(app *fiber.App, ct controller.DokterController) {
 
 	dokterGroupAdmin.Post("/", ct.CreateDokterController)
 	dokterGroupAdmin.Put("/:id", ct.UpdateDokterController)
+	dokterGroupAdmin.Delete("/:id", ct.DeleteDokterController)
 }
 
 func DokterRoute(app *fiber.App, ct controller.DokterController) {

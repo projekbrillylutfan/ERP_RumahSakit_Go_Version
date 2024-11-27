@@ -12,4 +12,5 @@ type DokterRepository interface {
 	FindAllDokterRepository(ctx context.Context) []*entity.Dokter
 	FindByIdDokterRepository(ctx context.Context, id int64) (*entity.Dokter, error)
 	UpdateDokterRepository(ctx context.Context, dokter *entity.Dokter) *entity.Dokter
+	DeleteDokterRepository(ctx context.Context, dokter *entity.Dokter)
 }

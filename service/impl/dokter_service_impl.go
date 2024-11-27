@@ -124,3 +124,15 @@ func (s *DokterServiceImpl) UpdateDokterService(ctx context.Context, dokter *dto
 		NomorTelepon: resultUpdate.NomorTelepon,
 	}
 }
+
+func (s *DokterServiceImpl) DeleteDokterService(ctx context.Context, id int64) {
+	result, err := s.DokterRepository.FindByIdDokterRepository(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+	s.DokterRepository.DeleteDokterRepository(ctx, result)
+}
