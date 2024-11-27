@@ -9,6 +9,7 @@ import (
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/model/entity"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/repository"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/service"
+	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/utils"
 	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/gomail.v2"
 )
@@ -135,4 +136,29 @@ func (s *DokterServiceImpl) DeleteDokterService(ctx context.Context, id int64) {
 		)
 	}
 	s.DokterRepository.DeleteDokterRepository(ctx, result)
+}
+
+func (s *DokterServiceImpl) AuthDokterService(ctx context.Context, modelLogin *dto.DokterLogin) string {
+	configuration.Validate(modelLogin)
+
+	dokters, err := s.DokterRepository.AuthDokterRepository(ctx, modelLogin.Email)
+	if err != nil {
+		panic(
+			exception.UnauthorizedError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(dokters.Password), []byte(modelLogin.Password))
+
+	if err != nil {
+		panic(exception.UnauthorizedError{
+			Message: "usename or password is incorrect",
+		})
+	}
+
+	tokenJwtResult := utils.GenerateTokenJWT(dokters.Email, dokters.Role, s.Config)
+
+	return tokenJwtResult
 }

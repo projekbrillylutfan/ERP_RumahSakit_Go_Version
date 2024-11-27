@@ -21,3 +21,8 @@ type DokterFindByIdResponse struct {
 	Spesialisasi    string `json:"spesialisasi" validate:"required"`
 	NomorTelepon    string `json:"nomor_telepon" validate:"required"`
 }
+
+type DokterLogin struct {
+	Email           string `json:"email" validate:"required,email"`
+	Password        string `json:"password" validate:"required"`
+}

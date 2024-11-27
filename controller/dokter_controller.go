@@ -11,6 +11,7 @@ type DokterController interface {
 	FindByIdDokerController(c *fiber.Ctx) error
 	UpdateDokterController(c *fiber.Ctx) error
 	DeleteDokterController(c *fiber.Ctx) error
+	AuthDokterController(c *fiber.Ctx) error
 
 
 	GetConfig() configuration.Config

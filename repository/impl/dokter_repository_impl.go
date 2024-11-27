@@ -62,3 +62,12 @@ func (r *DokterRepositoryImpl) DeleteDokterRepository(ctx context.Context, dokte
 	err := r.DB.WithContext(ctx).Delete(&dokter).Error
 	exception.PanicLogging(err)
 }
+
+func (r *DokterRepositoryImpl) AuthDokterRepository(ctx context.Context, email string) (*entity.Dokter, error) {
+	var dokter *entity.Dokter
+	resutl := r.DB.WithContext(ctx).Where("email = ?", email).First(&dokter)
+	if resutl.RowsAffected == 0 {
+		return nil, errors.New("email not found")
+	}
+	return dokter, nil
+}

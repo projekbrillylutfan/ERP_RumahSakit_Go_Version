@@ -88,3 +88,17 @@ func (ct *DokterControllerImpl) DeleteDokterController(c *fiber.Ctx) error {
 		Message: "success delete dokter",
 	})
 }
+
+func (ct *DokterControllerImpl) AuthDokterController(c *fiber.Ctx) error {
+	var request *dto.DokterLogin
+
+	err := c.BodyParser(&request)
+	exception.PanicLogging(err)
+
+	result := ct.DokterService.AuthDokterService(c.Context(), request)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success login dokter",
+		Data:    result,
+	})
+}

@@ -12,4 +12,5 @@ type DokterService interface {
 	FindByIdDokterService(ctx context.Context, id int64) *dto.DokterFindByIdResponse
 	UpdateDokterService(ctx context.Context, dokter *dto.DokterCreateOrUpdaeRequest, ID int64) *dto.DokterCreateOrUpdaeRequest
 	DeleteDokterService(ctx context.Context, id int64)
+	AuthDokterService(ctx context.Context, modelLogin *dto.DokterLogin) string
 }
