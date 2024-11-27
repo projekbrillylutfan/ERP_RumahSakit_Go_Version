@@ -37,6 +37,17 @@ func (r *DokterRepositoryImpl) FindByEmailDokterRepository(ctx context.Context, 
 	return dokter, nil
 }
 
+func (r *DokterRepositoryImpl) FindByEmailForgotDokterRepository(ctx context.Context, email string) (*entity.Dokter, error){
+	var dokter *entity.Dokter
+	result := r.DB.WithContext(ctx).Where("email = ?", email).First(&dokter)
+
+	if result.RowsAffected == 0 {
+		return nil, errors.New("dokter not found")
+	}
+
+	return dokter, nil
+}
+
 func (r *DokterRepositoryImpl) FindAllDokterRepository(ctx context.Context) []*entity.Dokter {
 	var dokters []*entity.Dokter
 	r.DB.WithContext(ctx).Find(&dokters)
@@ -72,7 +83,7 @@ func (r *DokterRepositoryImpl) AuthDokterRepository(ctx context.Context, email s
 	return dokter, nil
 }
 
-func (r *DokterRepositoryImpl) ForgotPassDokterRepository(ctx context.Context, int64, hashedPassword string) error {
-	result := r.DB.WithContext(ctx).Model(&entity.Dokter{}).Where("id_dokter = ?", int64).Update("password", hashedPassword)
+func (r *DokterRepositoryImpl) ForgotPassDokterRepository(ctx context.Context, id int64, hashedPassword string) error {
+	result := r.DB.WithContext(ctx).Model(&entity.Dokter{}).Where("id_dokter = ?", id).Update("password", hashedPassword)
 	return result.Error
 }

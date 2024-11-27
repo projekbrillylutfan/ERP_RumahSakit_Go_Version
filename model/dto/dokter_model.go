@@ -30,3 +30,8 @@ type DokterLogin struct {
 type ForgotPasswordDokter struct {
 	Email string `json:"email" validate:"required"`
 }
+
+type ResetPassDokter struct {
+	Token string `json:"token" validate:"required"`
+	PasswordNew string `json:"password_new" validate:"required"`
+}

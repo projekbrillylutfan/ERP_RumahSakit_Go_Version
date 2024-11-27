@@ -14,4 +14,5 @@ type DokterService interface {
 	DeleteDokterService(ctx context.Context, id int64)
 	AuthDokterService(ctx context.Context, modelLogin *dto.DokterLogin) string
 	ForgotPassDokterService(ctx context.Context, request *dto.ForgotPasswordDokter) error
+	ResetPassDokterService(ctx context.Context, request *dto.ResetPassDokter) error
 }

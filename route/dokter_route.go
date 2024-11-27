@@ -21,4 +21,5 @@ func DokterRoute(app *fiber.App, ct controller.DokterController) {
 	dokterGroup.Get("/:id", ct.FindByIdDokerController)
 	dokterGroup.Post("/auth", ct.AuthDokterController)
 	dokterGroup.Post("/forgot-pass", ct.ForgotPassDokterController)
+	dokterGroup.Post("/reset-pass", ct.ResetPassDokterController)
 }
