@@ -90,3 +90,37 @@ func (s *DokterServiceImpl) FindByIdDokterService(ctx context.Context, id int64)
 		NomorTelepon: dokterId.NomorTelepon,
 	}
 }
+
+func (s *DokterServiceImpl) UpdateDokterService(ctx context.Context, dokter *dto.DokterCreateOrUpdaeRequest, ID int64) *dto.DokterCreateOrUpdaeRequest {
+	configuration.Validate(dokter)
+
+	_, err := s.DokterRepository.FindByIdDokterRepository(ctx, ID)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(dokter.Password), bcrypt.DefaultCost)
+	exception.PanicLogging(err)
+
+	dokterUpdate := &entity.Dokter{
+		ID: ID,
+		Nama: dokter.Nama,
+		Email: dokter.Email,
+		Password: string(hashedPassword),
+		Spesialisasi: dokter.Spesialisasi,
+		NomorTelepon: dokter.NomorTelepon,
+	}
+	resultUpdate :=s.DokterRepository.UpdateDokterRepository(ctx, dokterUpdate)
+	resultUpdate.Password = ""
+	return &dto.DokterCreateOrUpdaeRequest{
+		Nama: resultUpdate.Nama,
+		Email: resultUpdate.Email,
+		Password: resultUpdate.Password,
+		Spesialisasi: resultUpdate.Spesialisasi,
+		NomorTelepon: resultUpdate.NomorTelepon,
+	}
+}

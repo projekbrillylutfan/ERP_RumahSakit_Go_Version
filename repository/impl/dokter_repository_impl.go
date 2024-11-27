@@ -51,3 +51,9 @@ func (r *DokterRepositoryImpl) FindByIdDokterRepository(ctx context.Context, id 
 	}
 	return dokter, nil
 }
+
+func (r *DokterRepositoryImpl) UpdateDokterRepository(ctx context.Context, dokter *entity.Dokter) *entity.Dokter {
+	err := r.DB.WithContext(ctx).Where("id_dokter = ?", dokter.ID).Updates(dokter).Error
+	exception.PanicLogging(err)
+	return dokter
+}

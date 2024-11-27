@@ -10,6 +10,7 @@ func DokterRouteAdmin(app *fiber.App, ct controller.DokterController) {
 	dokterGroupAdmin := app.Group("/api/admin/dokter", middleware.AuthenticateJWT([]string{"ADMIN"}, ct.GetConfig()))
 
 	dokterGroupAdmin.Post("/", ct.CreateDokterController)
+	dokterGroupAdmin.Put("/:id", ct.UpdateDokterController)
 }
 
 func DokterRoute(app *fiber.App, ct controller.DokterController) {

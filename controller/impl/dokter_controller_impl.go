@@ -59,3 +59,20 @@ func (ct *DokterControllerImpl) FindByIdDokerController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *DokterControllerImpl) UpdateDokterController(c *fiber.Ctx) error {
+	var request *dto.DokterCreateOrUpdaeRequest
+
+	id := c.Params("id")
+	err := c.BodyParser(&request)
+	exception.PanicLogging(err)
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	result := ct.DokterService.UpdateDokterService(c.Context(), request, idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success update dokter",
+		Data:    result,
+	})
+}

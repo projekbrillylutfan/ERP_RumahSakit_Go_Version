@@ -9,6 +9,7 @@ type DokterController interface {
 	CreateDokterController(c *fiber.Ctx) error
 	FindAllDokterController(c *fiber.Ctx) error
 	FindByIdDokerController(c *fiber.Ctx) error
+	UpdateDokterController(c *fiber.Ctx) error
 
 
 	GetConfig() configuration.Config
