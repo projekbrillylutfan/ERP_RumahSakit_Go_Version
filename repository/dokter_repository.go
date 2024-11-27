@@ -14,4 +14,5 @@ type DokterRepository interface {
 	UpdateDokterRepository(ctx context.Context, dokter *entity.Dokter) *entity.Dokter
 	DeleteDokterRepository(ctx context.Context, dokter *entity.Dokter)
 	AuthDokterRepository(ctx context.Context, email string) (*entity.Dokter, error)
+	ForgotPassDokterRepository(ctx context.Context, int64, hashedPassword string) error
 }

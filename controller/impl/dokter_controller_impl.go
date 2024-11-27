@@ -102,3 +102,21 @@ func (ct *DokterControllerImpl) AuthDokterController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *DokterControllerImpl) ForgotPassDokterController(c *fiber.Ctx) error {
+	var request *dto.ForgotPasswordDokter
+
+	if err := c.BodyParser(&request); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	err := ct.DokterService.ForgotPassDokterService(c.Context(), request)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "Password reset link sent to your email!",
+	})
+}

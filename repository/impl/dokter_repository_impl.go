@@ -71,3 +71,8 @@ func (r *DokterRepositoryImpl) AuthDokterRepository(ctx context.Context, email s
 	}
 	return dokter, nil
 }
+
+func (r *DokterRepositoryImpl) ForgotPassDokterRepository(ctx context.Context, int64, hashedPassword string) error {
+	result := r.DB.WithContext(ctx).Model(&entity.Dokter{}).Where("id_dokter = ?", int64).Update("password", hashedPassword)
+	return result.Error
+}

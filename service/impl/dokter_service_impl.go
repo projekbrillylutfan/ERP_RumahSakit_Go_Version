@@ -2,6 +2,8 @@ package impl_service
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/configuration"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/exception"
@@ -161,4 +163,37 @@ func (s *DokterServiceImpl) AuthDokterService(ctx context.Context, modelLogin *d
 	tokenJwtResult := utils.GenerateTokenJWT(dokters.Email, dokters.Role, s.Config)
 
 	return tokenJwtResult
+}
+
+func (s *DokterServiceImpl) ForgotPassDokterService(ctx context.Context, request *dto.ForgotPasswordDokter) error {
+	configuration.Validate(request)
+
+	dokter, err := s.DokterRepository.FindByEmailDokterRepository(ctx, request.Email)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	token := utils.GenerateToken(16)
+
+	tokenKey := fmt.Sprintf("reset_password:%s", token)
+	err = s.RedisService.Set(ctx, tokenKey, dokter.ID, time.Minute*15)
+	if err != nil {
+		return err
+	}
+
+	fromEmail := "ayam@example.com"
+	toEmail := dokter.Email
+	name := dokter.Nama
+	tokenEmail := token
+
+	err = utils.SendVerificationEmail(s.MailDialer, fromEmail, toEmail, name, tokenEmail)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

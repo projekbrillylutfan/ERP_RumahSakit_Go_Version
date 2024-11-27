@@ -12,6 +12,7 @@ type DokterController interface {
 	UpdateDokterController(c *fiber.Ctx) error
 	DeleteDokterController(c *fiber.Ctx) error
 	AuthDokterController(c *fiber.Ctx) error
+	ForgotPassDokterController(c *fiber.Ctx) error
 
 
 	GetConfig() configuration.Config
