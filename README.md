@@ -67,9 +67,13 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 ### 3. Perawat
 - **ID Perawat**: int
 - **Nama**: string
+- **Email**: string unik
+- **Password**: string
+- **Role**: enum
 - **Shift**: string
 - **Nomor Telepon**: string
-- **Alamat Email**: string
+- **Created At**: date
+- **Update At**: date
 
 ### 4. Janji Temu
 - **ID Janji Temu**: int
