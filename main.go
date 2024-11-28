@@ -35,14 +35,17 @@ func main() {
 	// init user repo
 	userRepository := impl_repository.NewUserRepository(database)
 	dokterRepository := impl_repository.NewDokterRepositoryImpl(database)
+	perawatRepository := impl_repository.NewPerawatRepositoryImpl(database)
 
 	// init user service
 	userService := impl_service.NewUserServiceImpl(&userRepository, &config, redisService, mailDialer)
 	dokterService := impl_service.NewDokterServiceImpl(&dokterRepository, &config, redisService, mailDialer)
+	perawatService := impl_service.NewPerawatServiceImpl(&perawatRepository, &config, redisService, mailDialer)
 
 	// init user controller
 	userController := impl_controller.NewUserControllerImpl(userService, config)
 	dokterController := impl_controller.NewDokterControllerImpl(dokterService, config)
+	perawatController := impl_controller.NewPerawatControllerImpl(perawatService, config)
 
 	// init fiber
 	app := fiber.New(configuration.NewFiberConfiguration())
@@ -57,6 +60,8 @@ func main() {
 	route.DokterRouteAdmin(app, dokterController)
 	// init route dokter
 	route.DokterRoute(app, dokterController)
+	// init route perawat
+	route.PerawatRouteAdmin(app, perawatController)
 
 	// server run 
 	err := app.Listen(config.Get("SERVER_PORT"))
