@@ -11,4 +11,5 @@ type PerawatRepository interface {
 	FindPerawatByEmailAndUsernameRepository(ctx context.Context, email, username string) (*entity.Perawat, error)
 	FindAllPerawatRepository(ctx context.Context) []*entity.Perawat
 	FindByIdPerawatRepository(ctx context.Context, id int64) (*entity.Perawat, error)
+	UpdatePerawatRepositoy(ctx context.Context, perawat *entity.Perawat) *entity.Perawat
 }

@@ -52,3 +52,9 @@ func (r *PerawatRepositoryImpl) FindByIdPerawatRepository(ctx context.Context, i
 	}
 	return perawat, nil
 }
+
+func (r *PerawatRepositoryImpl) UpdatePerawatRepositoy(ctx context.Context, perawat *entity.Perawat) *entity.Perawat {
+	err := r.DB.WithContext(ctx).Where("id_perawat = ?", perawat.ID).Updates(perawat).Error
+	exception.PanicLogging(err)
+	return perawat
+}

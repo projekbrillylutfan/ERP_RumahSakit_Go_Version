@@ -60,3 +60,21 @@ func (ct *PerawatControllerImpl) FindByIdPerawatController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *PerawatControllerImpl) UpdatePerawatController(c *fiber.Ctx) error {
+	var request *dto.PerawatCreateOrUpdateRequest
+	id := c.Params("id")
+
+	err := c.BodyParser(&request)
+	exception.PanicLogging(err)
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	ct.PerawatService.UpdatePerawatService(c.Context(), request, idInt64)
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success update perawat",
+		Data:    request,
+	})
+}
