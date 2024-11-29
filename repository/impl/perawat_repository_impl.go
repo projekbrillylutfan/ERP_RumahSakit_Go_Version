@@ -43,3 +43,12 @@ func (r *PerawatRepositoryImpl) FindAllPerawatRepository(ctx context.Context) []
 	r.DB.WithContext(ctx).Find(&perawats)
 	return perawats
 }
+
+func (r *PerawatRepositoryImpl) FindByIdPerawatRepository(ctx context.Context, id int64) (*entity.Perawat, error) {
+	var perawat *entity.Perawat
+	result := r.DB.WithContext(ctx).Where("id_perawat = ?", id).First(&perawat)
+	if result.RowsAffected == 0 {
+		return nil, errors.New("perawat not found")
+	}
+	return perawat, nil
+}

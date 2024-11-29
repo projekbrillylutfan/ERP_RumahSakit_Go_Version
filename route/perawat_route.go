@@ -10,6 +10,7 @@ func PerawatRouteAdmin(app *fiber.App, ct controller.PerawatController) {
 	perawatGroupAdmin := app.Group("/api/admin/perawat", middleware.AuthenticateJWT([]string{"ADMIN"}, ct.GetConfig()))
 
 	perawatGroupAdmin.Post("/", ct.CreatePerawatController)
+	perawatGroupAdmin.Get("/:id", ct.FindByIdPerawatController)
 }
 
 func PerawatRoute(app *fiber.App, ct controller.PerawatController) {

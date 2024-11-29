@@ -74,3 +74,22 @@ func (s *PerawatServiceImpl) FindAllPerawatService(ctx context.Context) (respons
 
 	return responses
 }
+
+func (s *PerawatServiceImpl) FindByIdPerawatService(ctx context.Context, id int64) *dto.PerawatFindByIdRespones {
+	perawat, err := s.PerawatRepository.FindByIdPerawatRepository(ctx, id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+	perawat.Password = ""
+	return &dto.PerawatFindByIdRespones{
+		ID: perawat.ID,
+		Nama: perawat.Nama,
+		Email: perawat.Email,
+		Username: perawat.Username,
+		Password: perawat.Password,
+		Shift: perawat.Shift,
+		NomorTelepon: perawat.NomorTelepon,
+	}
+}

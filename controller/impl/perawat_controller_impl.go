@@ -48,3 +48,15 @@ func (ct *PerawatControllerImpl) FindAllPerawatController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *PerawatControllerImpl) FindByIdPerawatController(c *fiber.Ctx) error {
+	id := c.Params("id")
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	result := ct.PerawatService.FindByIdPerawatService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find perawat by id",
+		Data:    result,
+	})
+}
