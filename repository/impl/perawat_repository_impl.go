@@ -58,3 +58,8 @@ func (r *PerawatRepositoryImpl) UpdatePerawatRepositoy(ctx context.Context, pera
 	exception.PanicLogging(err)
 	return perawat
 }
+
+func (r *PerawatRepositoryImpl) DeletePerawatRepository(ctx context.Context, perawat *entity.Perawat) {
+	err := r.DB.WithContext(ctx).Delete(&perawat).Error
+	exception.PanicLogging(err)
+}

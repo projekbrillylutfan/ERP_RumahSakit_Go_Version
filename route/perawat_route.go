@@ -12,6 +12,7 @@ func PerawatRouteAdmin(app *fiber.App, ct controller.PerawatController) {
 	perawatGroupAdmin.Post("/", ct.CreatePerawatController)
 	perawatGroupAdmin.Get("/:id", ct.FindByIdPerawatController)
 	perawatGroupAdmin.Put("/:id", ct.UpdatePerawatController)
+	perawatGroupAdmin.Delete("/:id", ct.DeletePerawatController)
 }
 
 func PerawatRoute(app *fiber.App, ct controller.PerawatController) {

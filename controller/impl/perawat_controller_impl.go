@@ -78,3 +78,15 @@ func (ct *PerawatControllerImpl) UpdatePerawatController(c *fiber.Ctx) error {
 		Data:    request,
 	})
 }
+
+func (ct *PerawatControllerImpl) DeletePerawatController(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	ct.PerawatService.DeletePerawatService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success delete perawat",
+	})
+}

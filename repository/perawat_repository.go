@@ -12,4 +12,5 @@ type PerawatRepository interface {
 	FindAllPerawatRepository(ctx context.Context) []*entity.Perawat
 	FindByIdPerawatRepository(ctx context.Context, id int64) (*entity.Perawat, error)
 	UpdatePerawatRepositoy(ctx context.Context, perawat *entity.Perawat) *entity.Perawat
+	DeletePerawatRepository(ctx context.Context, perawat *entity.Perawat)
 }

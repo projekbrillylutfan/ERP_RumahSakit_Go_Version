@@ -11,4 +11,5 @@ type PerawatService interface {
 	FindAllPerawatService(ctx context.Context) []*dto.PerawatFindAllRespones
 	FindByIdPerawatService(ctx context.Context, id int64) *dto.PerawatFindByIdRespones
 	UpdatePerawatService(ctx context.Context, perawat *dto.PerawatCreateOrUpdateRequest, id int64) *dto.PerawatCreateOrUpdateRequest
+	DeletePerawatService(ctx context.Context, id int64)
 }

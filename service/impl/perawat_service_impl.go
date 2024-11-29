@@ -129,3 +129,13 @@ func (s *PerawatServiceImpl) UpdatePerawatService(ctx context.Context, perawat *
 		NomorTelepon: result.NomorTelepon,
 	}
 }
+
+func (s *PerawatServiceImpl) DeletePerawatService(ctx context.Context, id int64) {
+	result, err := s.PerawatRepository.FindByIdPerawatRepository(ctx, id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+	s.PerawatRepository.DeletePerawatRepository(ctx, result)
+}

@@ -10,6 +10,7 @@ type PerawatController interface {
 	FindAllPerawatController(c *fiber.Ctx) error
 	FindByIdPerawatController(c *fiber.Ctx) error
 	UpdatePerawatController(c *fiber.Ctx) error
+	DeletePerawatController(c *fiber.Ctx) error
 
 	GetConfig() configuration.Config
 }
