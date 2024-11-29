@@ -9,4 +9,5 @@ import (
 type PerawatRepository interface {
 	CreatePerawatRepository(ctx context.Context, perawat *entity.Perawat) *entity.Perawat
 	FindPerawatByEmailAndUsernameRepository(ctx context.Context, email, username string) (*entity.Perawat, error)
+	FindAllPerawatRepository(ctx context.Context) []*entity.Perawat
 }

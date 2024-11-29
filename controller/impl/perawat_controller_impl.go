@@ -39,3 +39,12 @@ func (ct *PerawatControllerImpl) CreatePerawatController(c *fiber.Ctx) error {
 		Data:    request,
 	})
 }
+
+func (ct *PerawatControllerImpl) FindAllPerawatController(c *fiber.Ctx) error {
+	result := ct.PerawatService.FindAllPerawatService(c.Context())
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find all perawat",
+		Data:    result,
+	})
+}

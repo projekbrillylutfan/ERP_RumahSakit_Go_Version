@@ -37,3 +37,9 @@ func (r *PerawatRepositoryImpl) FindPerawatByEmailAndUsernameRepository(ctx cont
 
 	return perawat, nil
 }
+
+func (r *PerawatRepositoryImpl) FindAllPerawatRepository(ctx context.Context) []*entity.Perawat {
+	var perawats []*entity.Perawat
+	r.DB.WithContext(ctx).Find(&perawats)
+	return perawats
+}

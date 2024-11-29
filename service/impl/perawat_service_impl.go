@@ -56,3 +56,21 @@ func (s *PerawatServiceImpl) CreatePerawatService(ctx context.Context, perawat *
 	perawatCreate.Password = ""
 	return perawat
 }
+
+func (s *PerawatServiceImpl) FindAllPerawatService(ctx context.Context) (responses []*dto.PerawatFindAllRespones) {
+	perawats := s.PerawatRepository.FindAllPerawatRepository(ctx)
+
+	for _, perawat := range perawats {
+		responses = append(responses, &dto.PerawatFindAllRespones{
+			ID: perawat.ID,
+			Nama: perawat.Nama,
+			Shift: perawat.Shift,
+		})
+	}
+
+	if len(responses) == 0 {
+		return nil
+	}
+
+	return responses
+}

@@ -62,6 +62,7 @@ func main() {
 	route.DokterRoute(app, dokterController)
 	// init route perawat
 	route.PerawatRouteAdmin(app, perawatController)
+	route.PerawatRoute(app, perawatController)
 
 	// server run 
 	err := app.Listen(config.Get("SERVER_PORT"))

@@ -7,6 +7,7 @@ import (
 
 type PerawatController interface {
 	CreatePerawatController(c *fiber.Ctx) error
+	FindAllPerawatController(c *fiber.Ctx) error
 
 	GetConfig() configuration.Config
 }

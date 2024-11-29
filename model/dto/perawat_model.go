@@ -8,3 +8,9 @@ type PerawatCreateOrUpdateRequest struct {
 	Shift           string `json:"shift" validate:"required"`
 	NomorTelepon    string `json:"nomor_telepon" validate:"required"`
 }
+
+type PerawatFindAllRespones struct {
+	ID              int64  `json:"id_perawat" validate:"required"`
+	Nama            string `json:"nama" validate:"required"`
+	Shift           string `json:"shift" validate:"required"`
+}

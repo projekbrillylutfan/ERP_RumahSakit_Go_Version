@@ -7,7 +7,13 @@ import (
 )
 
 func PerawatRouteAdmin(app *fiber.App, ct controller.PerawatController) {
-	perawatGroup := app.Group("/api/admin/perawat", middleware.AuthenticateJWT([]string{"ADMIN"}, ct.GetConfig()))
+	perawatGroupAdmin := app.Group("/api/admin/perawat", middleware.AuthenticateJWT([]string{"ADMIN"}, ct.GetConfig()))
 
-	perawatGroup.Post("/", ct.CreatePerawatController)
+	perawatGroupAdmin.Post("/", ct.CreatePerawatController)
+}
+
+func PerawatRoute(app *fiber.App, ct controller.PerawatController) {
+	perawatGroup := app.Group("/api/perawat")
+
+	perawatGroup.Get("/", ct.FindAllPerawatController)
 }
