@@ -14,4 +14,5 @@ type PerawatService interface {
 	DeletePerawatService(ctx context.Context, id int64)
 	AuthPerawatService(ctx context.Context, model *dto.PerawatLogin) string
 	ForgotPassPerawatService(ctx context.Context, model *dto.ForgotPassword) error
+	ResetPassPerawatService(ctx context.Context, request *dto.ResetPassword) error
 }

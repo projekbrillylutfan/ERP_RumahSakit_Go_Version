@@ -13,6 +13,7 @@ type PerawatController interface {
 	DeletePerawatController(c *fiber.Ctx) error
 	AuthPerawatController(c *fiber.Ctx) error
 	ForgotPassPerawatController(c *fiber.Ctx) error
+	ResetPassPerawatController(c *fiber.Ctx) error
 
 	GetConfig() configuration.Config
 }

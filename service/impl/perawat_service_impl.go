@@ -3,6 +3,7 @@ package impl_service
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/configuration"
@@ -189,5 +190,30 @@ func (s *PerawatServiceImpl) ForgotPassPerawatService(ctx context.Context, model
 		return err
 	}
 
+	return nil
+}
+
+func (s *PerawatServiceImpl) ResetPassPerawatService(ctx context.Context, request *dto.ResetPassword) error {
+	configuration.Validate(request)
+	tokenKey := fmt.Sprintf("reset_password:%s", request.Token)
+	perawatID, err := s.RedisService.Get(ctx, tokenKey)
+	if err != nil {
+		panic(exception.UnauthorizedError{
+			Message: "invalid or expired token",
+		})
+	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(request.PasswordNew), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+
+	id, _ := strconv.ParseInt(perawatID, 10, 64)
+	err = s.PerawatRepository.UpdatePasswordPerawatRepository(ctx, id, string(hashedPassword))
+	if err != nil {
+		return err
+	}
+
+	s.RedisService.Del(ctx, tokenKey)
 	return nil
 }
