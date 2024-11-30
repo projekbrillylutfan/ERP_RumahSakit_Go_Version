@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS janji_temu CASCADE;

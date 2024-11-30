@@ -78,10 +78,12 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 
 ### 4. Janji Temu
 - **ID Janji Temu**: int
-- **ID Pasien**: int
+- **ID User**: int
 - **ID Dokter**: int
 - **Tanggal**: date
-- **Waktu**: time
+- **Waktu**: string
+- **Created At**: date
+- **Update At**: date
 
 ### 5. Rawat Inap
 - **ID Rawat Inap**: int
