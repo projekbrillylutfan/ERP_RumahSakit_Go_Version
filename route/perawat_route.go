@@ -19,4 +19,5 @@ func PerawatRoute(app *fiber.App, ct controller.PerawatController) {
 	perawatGroup := app.Group("/api/perawat")
 
 	perawatGroup.Get("/", ct.FindAllPerawatController)
+	perawatGroup.Post("/auth", ct.AuthPerawatController)
 }

@@ -90,3 +90,18 @@ func (ct *PerawatControllerImpl) DeletePerawatController(c *fiber.Ctx) error {
 		Message: "success delete perawat",
 	})
 }
+
+func (ct *PerawatControllerImpl) AuthPerawatController(c *fiber.Ctx) error {
+	var requet *dto.PerawatLogin
+
+	err := c.BodyParser(&requet)
+	exception.PanicLogging(err)
+
+	result := ct.PerawatService.AuthPerawatService(c.Context(), requet)
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success login perawat",
+		Data:    result,
+	})
+}

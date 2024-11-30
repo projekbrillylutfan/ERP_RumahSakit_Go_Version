@@ -24,3 +24,8 @@ type PerawatFindByIdRespones struct {
 	Shift           string `json:"shift" validate:"required"`
 	NomorTelepon    string `json:"nomor_telepon" validate:"required"`
 }
+
+type PerawatLogin struct {
+	Email           string `json:"email" validate:"required"`
+	Password        string `json:"password" validate:"required"`
+}

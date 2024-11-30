@@ -63,3 +63,17 @@ func (r *PerawatRepositoryImpl) DeletePerawatRepository(ctx context.Context, per
 	err := r.DB.WithContext(ctx).Delete(&perawat).Error
 	exception.PanicLogging(err)
 }
+
+func (r *PerawatRepositoryImpl) FindByEmailPerawatRepository(ctx context.Context, email string) (*entity.Perawat, error) {
+	var perawat *entity.Perawat
+	result := r.DB.WithContext(ctx).Where("email = ?", email).First(&perawat)
+	if result.RowsAffected == 0 {
+		return nil, errors.New("perawat not found")
+	}
+	return perawat, nil
+}
+
+func (r *PerawatRepositoryImpl) UpdatePasswordPerawatRepository(ctx context.Context, userID int64, hashedPassword string) error {
+	result := r.DB.WithContext(ctx).Model(&entity.Perawat{}).Where("id_perawat = ?", userID).Update("password", hashedPassword)
+	return result.Error
+}

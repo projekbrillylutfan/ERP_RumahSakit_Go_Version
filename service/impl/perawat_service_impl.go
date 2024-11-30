@@ -9,6 +9,7 @@ import (
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/model/entity"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/repository"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/service"
+	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/utils"
 	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/gomail.v2"
 )
@@ -138,4 +139,23 @@ func (s *PerawatServiceImpl) DeletePerawatService(ctx context.Context, id int64)
 		})
 	}
 	s.PerawatRepository.DeletePerawatRepository(ctx, result)
+}
+
+func (s *PerawatServiceImpl) AuthPerawatService(ctx context.Context, model *dto.PerawatLogin) string {
+	configuration.Validate(model)
+	perawat, err := s.PerawatRepository.FindByEmailPerawatRepository(ctx, model.Email)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+	err = bcrypt.CompareHashAndPassword([]byte(perawat.Password), []byte(model.Password))
+	if err != nil {
+		panic(exception.UnauthorizedError{
+			Message: "usename or password is incorrect",
+		})
+	}
+	tokenJwtResult := utils.GenerateTokenJWT(perawat.Email, perawat.Role, s.Config)
+
+	return tokenJwtResult
 }
