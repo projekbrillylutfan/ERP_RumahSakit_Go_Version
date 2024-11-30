@@ -20,4 +20,5 @@ func PerawatRoute(app *fiber.App, ct controller.PerawatController) {
 
 	perawatGroup.Get("/", ct.FindAllPerawatController)
 	perawatGroup.Post("/auth", ct.AuthPerawatController)
+	perawatGroup.Post("/forgot-pass", ct.ForgotPassPerawatController)
 }

@@ -2,6 +2,8 @@ package impl_service
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/configuration"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/exception"
@@ -158,4 +160,34 @@ func (s *PerawatServiceImpl) AuthPerawatService(ctx context.Context, model *dto.
 	tokenJwtResult := utils.GenerateTokenJWT(perawat.Email, perawat.Role, s.Config)
 
 	return tokenJwtResult
+}
+
+func (s *PerawatServiceImpl) ForgotPassPerawatService(ctx context.Context, model *dto.ForgotPassword) error {
+	configuration.Validate(model)
+	perawat, err := s.PerawatRepository.FindByEmailPerawatRepository(ctx, model.Email)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+
+	token := utils.GenerateToken(16)
+
+	tokenKey := fmt.Sprintf("reset_password:%s", token)
+	err = s.RedisService.Set(ctx, tokenKey, perawat.ID, time.Minute*15)
+	if err != nil {
+		return err
+	}
+
+	fromEmail := "ayam@example.com"
+	toEmail := perawat.Email
+	name := perawat.Nama
+	tokenEmail := token
+
+	err = utils.SendVerificationEmail(s.MailDialer, fromEmail, toEmail, name, tokenEmail)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
