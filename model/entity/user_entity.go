@@ -16,6 +16,9 @@ type User struct {
 	NomorTelepon    string    `gorm:"type:varchar(20);unique"`                 // Nomor Telepon unik
 	CreatedAt       time.Time `gorm:"type:timestamp;autoCreateTime"`           // Waktu dibuat
 	UpdatedAt       time.Time `gorm:"type:timestamp;autoUpdateTime"`           // Waktu diperbarui
+
+	// Relasi ke JanjiTemu
+	JanjiTemu []*JanjiTemu `gorm:"foreignKey:IDUser;references:ID"`
 }
 
 func (u *User) TableName() string {

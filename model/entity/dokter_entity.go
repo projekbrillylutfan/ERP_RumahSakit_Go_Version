@@ -11,8 +11,11 @@ type Dokter struct {
 	IsEmailVerified bool      `gorm:"type:boolean;default:false;not null" json:"is_email_verified"` // Email terverifikasi
 	Spesialisasi    string    `gorm:"type:varchar(255)" json:"spesialisasi"`                        // Spesialisasi
 	NomorTelepon    string    `gorm:"type:varchar(20)" json:"nomor_telepon"`                        // Nomor Telepon
-	CreatedAt       time.Time `gorm:"type:timestamp;autoCreateTime"`   // Waktu dibuat
-	UpdatedAt       time.Time `gorm:"type:timestamp;autoUpdateTime"`   // Waktu diperbarui
+	CreatedAt       time.Time `gorm:"type:timestamp;autoCreateTime"`                                // Waktu dibuat
+	UpdatedAt       time.Time `gorm:"type:timestamp;autoUpdateTime"`
+
+	// Relasi ke JanjiTemu
+	JanjiTemu []*JanjiTemu `gorm:"foreignKey:IDDokter;references:ID"`
 }
 
 // Custom Table Name (opsional jika nama tabel tidak sama dengan nama struct)

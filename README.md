@@ -38,9 +38,10 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 ## Entitas dan Atribut
 
 ### 1. User
+
 - **ID User**: int auto increment
 - **Nama**: string not null
-- **Alamat**: text 
+- **Alamat**: text
 - **Username**: string unik
 - **Email**: string unik
 - **Password**: string
@@ -53,6 +54,7 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 - **Update At**: date
 
 ### 2. Dokter
+
 - **ID Dokter**: int
 - **Nama**: string
 - **Email**: string unik
@@ -65,6 +67,7 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 - **Update At**: date
 
 ### 3. Perawat
+
 - **ID Perawat**: int
 - **Nama**: string
 - **Email**: string unik
@@ -77,6 +80,7 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 - **Update At**: date
 
 ### 4. Janji Temu
+
 - **ID Janji Temu**: int
 - **ID User**: int
 - **ID Dokter**: int
@@ -86,6 +90,7 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 - **Update At**: date
 
 ### 5. Rawat Inap
+
 - **ID Rawat Inap**: int
 - **ID Pasien**: int
 - **ID Kamar**: int
@@ -93,17 +98,20 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 - **Tanggal Keluar**: date
 
 ### 6. Kamar
+
 - **ID Kamar**: int
 - **Jenis Kamar**: string
 - **Tarif Per Hari**: decimal
 
 ### 7. Obat
+
 - **ID Obat**: int
 - **Nama Obat**: string
 - **Deskripsi**: string
 - **Harga**: decimal
 
 ### 8. Resep
+
 - **ID Resep**: int
 - **ID Pasien**: int
 - **ID Dokter**: int
@@ -111,12 +119,14 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 - **Total Harga**: decimal
 
 ### 9. Resep Detail
+
 - **ID Resep**: int
 - **ID Obat**: int
 - **Jumlah**: int
 - **Harga**: decimal
 
 ### 10. Tagihan
+
 - **ID Tagihan**: int
 - **ID Pasien**: int
 - **Tanggal**: date
@@ -124,21 +134,22 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 
 ## Hubungan Antar Entitas
 
-- **Pasien** `1:N` **Janji Temu**
+- **User** `1:N` **Janji Temu**
 - **Dokter** `1:N` **Janji Temu**
-- **Pasien** `1:N` **Rawat Inap**
+- **User** `1:N` **Rawat Inap**
 - **Kamar** `1:N` **Rawat Inap**
-- **Pasien** `1:N` **Resep**
+- **User** `1:N` **Resep**
 - **Dokter** `1:N` **Resep**
 - **Resep** `1:N` **Resep Detail**
 - **Obat** `1:N` **Resep Detail**
-- **Pasien** `1:N` **Tagihan**
+- **User** `1:N` **Tagihan**
 
 ## Diagram ERD
 
 ![ERD Hospital Management System](ERD_Hospital_Management_System.png)
 
 ### Penjelasan Hubungan
+
 1. **Pasien dan Janji Temu**: Seorang pasien dapat memiliki banyak janji temu, dan setiap janji temu dihadiri oleh satu pasien dan satu dokter.
 2. **Pasien dan Rawat Inap**: Seorang pasien dapat dirawat di banyak kamar (berbeda waktu), dan setiap kamar dapat menampung banyak pasien (berbeda waktu).
 3. **Pasien dan Resep**: Seorang pasien dapat memiliki banyak resep yang diberikan oleh dokter.
