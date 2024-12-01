@@ -46,3 +46,14 @@ func (ct *JanjiTemuControllerImpl) FindAllJanjiTemuController(ctx *fiber.Ctx) er
 		Data:    result,
 	})
 }
+
+func (ct *JanjiTemuControllerImpl) FindByIdJanjiTemuController(ctx *fiber.Ctx) error {
+	id := ctx.Params("id")
+	idInt64 := exception.ConversionErrorStrconv(id)
+	result := ct.JanjiTemuService.FindByIdJanjiTemuService(ctx.Context(), idInt64)
+	return ctx.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find janji temu by id",
+		Data:    result,
+	})
+}

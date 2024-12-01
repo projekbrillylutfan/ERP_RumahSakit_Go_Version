@@ -9,4 +9,5 @@ import (
 type JanjiTemuService interface {
 	CreateJanjiTemuService(ctx context.Context, JanjiTemu *dto.JanjiTemuCreateOrUpdate) *dto.JanjiTemuCreateOrUpdate
 	FindAllJanjiTemuService(ctx context.Context) []*dto.JanjiTemuFindAllResponse
+	FindByIdJanjiTemuService(ctx context.Context, id int64) *dto.JanjiTemuFindByIdResponse
 }

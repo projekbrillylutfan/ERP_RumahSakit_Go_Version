@@ -71,3 +71,20 @@ func (s *JanjiTemuServiceImpl) FindAllJanjiTemuService(ctx context.Context) (res
 
 	return responses
 }
+
+func (s *JanjiTemuServiceImpl) FindByIdJanjiTemuService(ctx context.Context, id int64) *dto.JanjiTemuFindByIdResponse {
+	janjiTemu, err := s.JanjiTemuRepository.FindByIdJanjiTemuRepo(ctx, id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+
+	return &dto.JanjiTemuFindByIdResponse{
+		IDJanjiTemu: janjiTemu.IDJanjiTemu,
+		IDUser: dto.ConvertUserToModel(&janjiTemu.User),
+		IDDokter: dto.ConvertDokterToModel(&janjiTemu.Dokter),
+		Tanggal:  janjiTemu.Tanggal,
+		Waktu:    janjiTemu.Waktu,
+	}
+}

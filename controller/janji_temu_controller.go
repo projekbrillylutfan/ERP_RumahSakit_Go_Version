@@ -8,6 +8,7 @@ import (
 type JanjiTemuController interface {
 	CreateJanjiTemuController(ctx *fiber.Ctx) error
 	FindAllJanjiTemuController(ctx *fiber.Ctx) error
+	FindByIdJanjiTemuController(ctx *fiber.Ctx) error
 
 
 
