@@ -57,3 +57,20 @@ func (ct *JanjiTemuControllerImpl) FindByIdJanjiTemuController(ctx *fiber.Ctx) e
 		Data:    result,
 	})
 }
+
+func (ct *JanjiTemuControllerImpl) UpdateJanjiTemuController(c *fiber.Ctx) error {
+	var request *dto.JanjiTemuCreateOrUpdate
+	id := c.Params("id")
+	err := c.BodyParser(&request)
+	exception.PanicLogging(err)
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	result :=ct.JanjiTemuService.UpdateJanjiTemuService(c.Context(), request, idInt64)
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success update janji temu",
+		Data:    result,
+	})
+}

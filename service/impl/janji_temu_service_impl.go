@@ -88,3 +88,45 @@ func (s *JanjiTemuServiceImpl) FindByIdJanjiTemuService(ctx context.Context, id 
 		Waktu:    janjiTemu.Waktu,
 	}
 }
+
+func (s *JanjiTemuServiceImpl) UpdateJanjiTemuService(ctx context.Context, JanjiTemu *dto.JanjiTemuCreateOrUpdate, id int64) *dto.JanjiTemuCreateOrUpdate {
+	configuration.Validate(JanjiTemu)
+
+	_, err := s.JanjiTemuRepository.FindByIdJanjiTemuRepo(ctx, id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+
+	_, err = s.UserRepository.FindByIdUserRepo(ctx, JanjiTemu.IDUser)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+
+	_, err = s.DokterRespository.FindByIdDokterRepository(ctx, JanjiTemu.IDDokter)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+
+	janjiTemuUpdate := &entity.JanjiTemu{
+		IDJanjiTemu: id,
+		IDUser:      JanjiTemu.IDUser,
+		IDDokter:    JanjiTemu.IDDokter,
+		Tanggal:     JanjiTemu.Tanggal,
+		Waktu:       JanjiTemu.Waktu,
+	}
+
+	result := s.JanjiTemuRepository.UpdateJanjiTemuRepo(ctx, janjiTemuUpdate)
+
+	return &dto.JanjiTemuCreateOrUpdate{
+		IDUser:      result.IDUser,
+		IDDokter:    result.IDDokter,
+		Tanggal:     result.Tanggal,
+		Waktu:       result.Waktu,
+	}
+}

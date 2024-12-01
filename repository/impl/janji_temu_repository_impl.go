@@ -40,3 +40,9 @@ func (r *JanjiTemuRepositoryImpl) FindByIdJanjiTemuRepo(ctx context.Context, id 
 	}
 	return JanjiTemu, nil
 }
+
+func (r *JanjiTemuRepositoryImpl) UpdateJanjiTemuRepo(ctx context.Context, JanjiTemu *entity.JanjiTemu) *entity.JanjiTemu {
+	err := r.DB.WithContext(ctx).Where("id_janji_temu = ?", JanjiTemu.IDJanjiTemu).Updates(JanjiTemu).Error
+	exception.PanicLogging(err)
+	return JanjiTemu
+}
