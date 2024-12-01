@@ -8,4 +8,5 @@ import (
 
 type JanjiTemuRepository interface {
 	CreateJanjiTemuRepo(ctx context.Context, JanjiTemu *entity.JanjiTemu) *entity.JanjiTemu
+	FindAllJanjiTemuRepo(ctx context.Context) []*entity.JanjiTemu
 }

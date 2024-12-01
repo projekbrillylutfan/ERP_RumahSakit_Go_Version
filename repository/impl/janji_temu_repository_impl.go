@@ -24,3 +24,9 @@ func (r *JanjiTemuRepositoryImpl) CreateJanjiTemuRepo(ctx context.Context, Janji
 	exception.PanicLogging(err)
 	return JanjiTemu
 }
+
+func (r *JanjiTemuRepositoryImpl) FindAllJanjiTemuRepo(ctx context.Context) []*entity.JanjiTemu {
+	var JanjiTemu []*entity.JanjiTemu
+	r.DB.WithContext(ctx).Find(&JanjiTemu)
+	return JanjiTemu
+}

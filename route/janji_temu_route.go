@@ -10,4 +10,5 @@ func JanjiTemu(app *fiber.App, ct controller.JanjiTemuController) {
 	janjiTemuGroup := app.Group("/api/janji-temu", middleware.AuthenticateJWT([]string{"ADMIN", "USER", "PERAWAT"}, ct.GetConfig()))
 
 	janjiTemuGroup.Post("/", ct.CreateJanjiTemuController)
+	janjiTemuGroup.Get("/", ct.FindAllJanjiTemuController)
 }

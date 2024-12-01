@@ -37,3 +37,12 @@ func (ct *JanjiTemuControllerImpl) CreateJanjiTemuController(ctx *fiber.Ctx) err
 		Data:    request,
 	})
 }
+
+func (ct *JanjiTemuControllerImpl) FindAllJanjiTemuController(ctx *fiber.Ctx) error {
+	result := ct.JanjiTemuService.FindAllJanjiTemuService(ctx.Context())
+	return ctx.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find all janji temu",
+		Data:    result,
+	})
+}

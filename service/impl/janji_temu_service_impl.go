@@ -52,3 +52,22 @@ func (s *JanjiTemuServiceImpl) CreateJanjiTemuService(ctx context.Context, Janji
 	s.JanjiTemuRepository.CreateJanjiTemuRepo(ctx, janjiTemuCreate)
 	return JanjiTemu
 }
+
+func (s *JanjiTemuServiceImpl) FindAllJanjiTemuService(ctx context.Context) (responses []*dto.JanjiTemuFindAllResponse) {
+	janjiTemu := s.JanjiTemuRepository.FindAllJanjiTemuRepo(ctx)
+	for _, janjiTemu := range janjiTemu {
+		responses = append(responses, &dto.JanjiTemuFindAllResponse{
+			IDJanjiTemu: janjiTemu.IDJanjiTemu,
+			IDUser:      janjiTemu.IDUser,
+			IDDokter:    janjiTemu.IDDokter,
+			Tanggal:     janjiTemu.Tanggal,
+			Waktu:       janjiTemu.Waktu,
+		})
+	}
+
+	if len(responses) == 0 {
+		return nil
+	}
+
+	return responses
+}
