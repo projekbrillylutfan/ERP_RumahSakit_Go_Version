@@ -130,3 +130,13 @@ func (s *JanjiTemuServiceImpl) UpdateJanjiTemuService(ctx context.Context, Janji
 		Waktu:       result.Waktu,
 	}
 }
+
+func (s *JanjiTemuServiceImpl) DeleteJanjiTemuService(ctx context.Context, id int64) {
+	result, err := s.JanjiTemuRepository.FindByIdJanjiTemuRepo(ctx, id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+	s.JanjiTemuRepository.DeleteJanjiTemuRepo(ctx, result)
+}

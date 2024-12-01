@@ -46,3 +46,8 @@ func (r *JanjiTemuRepositoryImpl) UpdateJanjiTemuRepo(ctx context.Context, Janji
 	exception.PanicLogging(err)
 	return JanjiTemu
 }
+
+func (r *JanjiTemuRepositoryImpl) DeleteJanjiTemuRepo(ctx context.Context, JanjiTemu *entity.JanjiTemu) {
+	err := r.DB.WithContext(ctx).Delete(&JanjiTemu).Error
+	exception.PanicLogging(err)
+}

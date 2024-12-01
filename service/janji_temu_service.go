@@ -11,4 +11,5 @@ type JanjiTemuService interface {
 	FindAllJanjiTemuService(ctx context.Context) []*dto.JanjiTemuFindAllResponse
 	FindByIdJanjiTemuService(ctx context.Context, id int64) *dto.JanjiTemuFindByIdResponse
 	UpdateJanjiTemuService(ctx context.Context, JanjiTemu *dto.JanjiTemuCreateOrUpdate, id int64) *dto.JanjiTemuCreateOrUpdate
+	DeleteJanjiTemuService(ctx context.Context, id int64)
 }

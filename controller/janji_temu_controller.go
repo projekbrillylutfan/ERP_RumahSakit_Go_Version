@@ -10,6 +10,7 @@ type JanjiTemuController interface {
 	FindAllJanjiTemuController(ctx *fiber.Ctx) error
 	FindByIdJanjiTemuController(ctx *fiber.Ctx) error
 	UpdateJanjiTemuController(c *fiber.Ctx) error
+	DeleteJanjiTemuController(c *fiber.Ctx) error
 
 
 

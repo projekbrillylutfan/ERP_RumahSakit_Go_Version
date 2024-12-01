@@ -11,4 +11,5 @@ type JanjiTemuRepository interface {
 	FindAllJanjiTemuRepo(ctx context.Context) []*entity.JanjiTemu
 	FindByIdJanjiTemuRepo(ctx context.Context, id int64) (*entity.JanjiTemu, error)
 	UpdateJanjiTemuRepo(ctx context.Context, JanjiTemu *entity.JanjiTemu) *entity.JanjiTemu
+	DeleteJanjiTemuRepo(ctx context.Context, JanjiTemu *entity.JanjiTemu)
 }

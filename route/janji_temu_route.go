@@ -13,4 +13,5 @@ func JanjiTemu(app *fiber.App, ct controller.JanjiTemuController) {
 	janjiTemuGroup.Get("/", ct.FindAllJanjiTemuController)
 	janjiTemuGroup.Get("/:id", ct.FindByIdJanjiTemuController)
 	janjiTemuGroup.Put("/:id", ct.UpdateJanjiTemuController)
+	janjiTemuGroup.Delete("/:id", ct.DeleteJanjiTemuController)
 }
