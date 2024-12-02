@@ -46,3 +46,14 @@ func (ct *KamarControllerImpl) FindAllKamarController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *KamarControllerImpl) FindByIdKamarController(c *fiber.Ctx) error {
+	id := c.Params("id")
+	idInt64 := exception.ConversionErrorStrconv(id)
+	result := ct.KamarService.FindByIdKamarService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find kamar by id",
+		Data:    result,
+	})
+}

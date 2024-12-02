@@ -2,6 +2,7 @@ package impl_repository
 
 import (
 	"context"
+	"errors"
 
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/exception"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/model/entity"
@@ -29,4 +30,13 @@ func (r *KamarRepositoryImpl) FindAllKamarRepository(ctx context.Context) []*ent
 	var kamars []*entity.Kamar
 	r.DB.WithContext(ctx).Find(&kamars)
 	return kamars
+}
+
+func (r *KamarRepositoryImpl) FindByIdKamarRepository(ctx context.Context, id int64) (*entity.Kamar, error) {
+	var kamar *entity.Kamar
+	result := r.DB.WithContext(ctx).Where("id_kamar = ?", id).First(&kamar)
+	if result.RowsAffected == 0 {
+		return nil, errors.New("kamar not found")
+	}
+	return kamar, nil
 }
