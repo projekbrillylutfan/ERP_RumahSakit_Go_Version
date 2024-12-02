@@ -57,3 +57,21 @@ func (ct *KamarControllerImpl) FindByIdKamarController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *KamarControllerImpl) UpdateKamarController(c *fiber.Ctx) error {
+	var req *dto.KamarCreateOrUpdateReq
+
+	id := c.Params("id")
+	err := c.BodyParser(&req)
+	exception.PanicLogging(err)
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	result := ct.KamarService.UpdateKamarService(c.Context(), req, idInt64)
+
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success update kamar",
+		Data:    &result,
+	})
+}

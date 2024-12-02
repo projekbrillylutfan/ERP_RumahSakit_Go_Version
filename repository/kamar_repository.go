@@ -10,4 +10,5 @@ type KamarRepository interface {
 	CreateKamarRepository(ctx context.Context, kamar *entity.Kamar) *entity.Kamar
 	FindAllKamarRepository(ctx context.Context) []*entity.Kamar
 	FindByIdKamarRepository(ctx context.Context, id int64) (*entity.Kamar, error)
+	UpdateKamarRepository(ctx context.Context, kamar *entity.Kamar) *entity.Kamar
 }

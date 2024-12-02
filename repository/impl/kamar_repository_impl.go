@@ -40,3 +40,9 @@ func (r *KamarRepositoryImpl) FindByIdKamarRepository(ctx context.Context, id in
 	}
 	return kamar, nil
 }
+
+func (r *KamarRepositoryImpl) UpdateKamarRepository(ctx context.Context, kamar *entity.Kamar) *entity.Kamar {
+	err := r.DB.WithContext(ctx).Where("id_kamar = ?", kamar.IDKamar).Updates(kamar).Error
+	exception.PanicLogging(err)
+	return kamar
+}

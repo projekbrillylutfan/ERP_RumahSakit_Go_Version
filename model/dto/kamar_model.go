@@ -3,7 +3,7 @@ package dto
 import "time"
 
 type KamarCreateOrUpdateReq struct {
-	JenisKamar   string    `json:"jenis_kamar" validate:"required"`             // Jenis Kamar (ENUM)
+	JenisKamar   string    `json:"jenis_kamar" validate:"required,oneof=STANDARD DELUXE VIP"`             // Jenis Kamar (ENUM)
 	TarifPerHari float64   `json:"tarif_per_hari" validate:"required"`        // Tarif Per Hari
 }
 

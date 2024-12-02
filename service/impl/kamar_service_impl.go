@@ -65,3 +65,26 @@ func (s *KamarServiceImpl) FindByIdKamarService(ctx context.Context, id int64) *
 		TarifPerHari: kamar.TarifPerHari,
 	}
 }
+
+func (s *KamarServiceImpl) UpdateKamarService(ctx context.Context, kamar *dto.KamarCreateOrUpdateReq, id int64) *dto.KamarCreateOrUpdateReq {
+	configuration.Validate(kamar)
+
+	_, err := s.KamarRepository.FindByIdKamarRepository(ctx, id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+
+	kamarUpdate := &entity.Kamar{
+		IDKamar:      id,
+		JenisKamar:   kamar.JenisKamar,
+		TarifPerHari: kamar.TarifPerHari,
+	}
+	result := s.KamarRepository.UpdateKamarRepository(ctx, kamarUpdate)
+
+	return &dto.KamarCreateOrUpdateReq{
+		JenisKamar:   result.JenisKamar,
+		TarifPerHari: result.TarifPerHari,
+	}
+}
