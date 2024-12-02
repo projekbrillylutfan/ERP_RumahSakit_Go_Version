@@ -37,3 +37,12 @@ func (ct *KamarControllerImpl) CreateKamarController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *KamarControllerImpl) FindAllKamarController(c *fiber.Ctx) error {
+	result := ct.KamarService.FindAllKamarService(c.Context())
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find all kamar",
+		Data:    result,
+	})
+}

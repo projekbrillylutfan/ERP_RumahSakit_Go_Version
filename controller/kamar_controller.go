@@ -7,6 +7,7 @@ import (
 
 type KamarController interface {
 	CreateKamarController(c *fiber.Ctx) error
+	FindAllKamarController(c *fiber.Ctx) error
 
 	GetConfig() configuration.Config
 }

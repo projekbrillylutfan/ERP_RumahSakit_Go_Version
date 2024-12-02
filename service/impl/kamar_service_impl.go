@@ -31,3 +31,21 @@ func (s *KamarServiceImpl) CreateKamarService(ctx context.Context, kamar *dto.Ka
 
 	return kamar
 }
+
+func (s *KamarServiceImpl) FindAllKamarService(ctx context.Context) (responses []*dto.KamarFindAllResponse) {
+	kamars := s.KamarRepository.FindAllKamarRepository(ctx)
+
+	for _, kamar := range kamars {
+		responses = append(responses, &dto.KamarFindAllResponse{
+			IDKamar:      kamar.IDKamar,
+			JenisKamar:   kamar.JenisKamar,
+			TarifPerHari: kamar.TarifPerHari,
+		})
+	}
+
+	if len(responses) == 0 {
+		return nil
+	}
+
+	return responses
+}

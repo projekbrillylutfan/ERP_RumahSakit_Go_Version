@@ -8,4 +8,5 @@ import (
 
 type KamarRepository interface {
 	CreateKamarRepository(ctx context.Context, kamar *entity.Kamar) *entity.Kamar
+	FindAllKamarRepository(ctx context.Context) []*entity.Kamar
 }

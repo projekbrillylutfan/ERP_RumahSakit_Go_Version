@@ -8,4 +8,5 @@ import (
 
 type KamarService interface {
 	CreateKamarService(ctx context.Context, kamar *dto.KamarCreateOrUpdateReq) *dto.KamarCreateOrUpdateReq
+	FindAllKamarService(ctx context.Context) []*dto.KamarFindAllResponse
 }

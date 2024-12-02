@@ -10,4 +10,5 @@ func KamarRoute(app *fiber.App, ct controller.KamarController) {
 	kamarGroup := app.Group("/api/kamar", middleware.AuthenticateJWT([]string{"ADMIN", "PERAWAT"}, ct.GetConfig()))
 
 	kamarGroup.Post("/", ct.CreateKamarController)
+	kamarGroup.Get("/", ct.FindAllKamarController)
 }

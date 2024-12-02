@@ -24,3 +24,9 @@ func (r *KamarRepositoryImpl) CreateKamarRepository(ctx context.Context, kamar *
 	exception.PanicLogging(err)
 	return kamar
 }
+
+func (r *KamarRepositoryImpl) FindAllKamarRepository(ctx context.Context) []*entity.Kamar {
+	var kamars []*entity.Kamar
+	r.DB.WithContext(ctx).Find(&kamars)
+	return kamars
+}
