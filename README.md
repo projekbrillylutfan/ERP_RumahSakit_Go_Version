@@ -100,8 +100,10 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 ### 6. Kamar
 
 - **ID Kamar**: int
-- **Jenis Kamar**: string
-- **Tarif Per Hari**: decimal
+- **Jenis Kamar**: Enum
+- **Tarif Per Hari**: float
+- **Created At**: date
+- **Update At**: date
 
 ### 7. Obat
 
