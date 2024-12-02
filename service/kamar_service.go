@@ -11,4 +11,5 @@ type KamarService interface {
 	FindAllKamarService(ctx context.Context) []*dto.KamarFindAllResponse
 	FindByIdKamarService(ctx context.Context, id int64) *dto.KamarFindByIdResponse
 	UpdateKamarService(ctx context.Context, kamar *dto.KamarCreateOrUpdateReq, id int64) *dto.KamarCreateOrUpdateReq
+	DeleteKamarService(ctx context.Context, id int64)
 }

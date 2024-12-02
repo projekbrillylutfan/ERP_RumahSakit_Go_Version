@@ -75,3 +75,15 @@ func (ct *KamarControllerImpl) UpdateKamarController(c *fiber.Ctx) error {
 		Data:    &result,
 	})
 }
+
+func (ct *KamarControllerImpl) DeleteKamarController(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	ct.KamarService.DeleteKamarService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success delete kamar",
+	})
+}

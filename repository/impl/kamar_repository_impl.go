@@ -46,3 +46,8 @@ func (r *KamarRepositoryImpl) UpdateKamarRepository(ctx context.Context, kamar *
 	exception.PanicLogging(err)
 	return kamar
 }
+
+func (r *KamarRepositoryImpl) DeleteKamarRepository(ctx context.Context, kamar *entity.Kamar) {
+	err := r.DB.WithContext(ctx).Delete(&kamar).Error
+	exception.PanicLogging(err)
+}

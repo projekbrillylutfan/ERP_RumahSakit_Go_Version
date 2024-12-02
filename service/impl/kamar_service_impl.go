@@ -88,3 +88,13 @@ func (s *KamarServiceImpl) UpdateKamarService(ctx context.Context, kamar *dto.Ka
 		TarifPerHari: result.TarifPerHari,
 	}
 }
+
+func (s *KamarServiceImpl) DeleteKamarService(ctx context.Context, id int64) {
+	result, err := s.KamarRepository.FindByIdKamarRepository(ctx, id)
+	if err != nil {
+		panic(exception.NotFoundError{
+			Message: err.Error(),
+		})
+	}
+	s.KamarRepository.DeleteKamarRepository(ctx, result)
+}

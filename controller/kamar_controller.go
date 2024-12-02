@@ -10,6 +10,7 @@ type KamarController interface {
 	FindAllKamarController(c *fiber.Ctx) error
 	FindByIdKamarController(c *fiber.Ctx) error
 	UpdateKamarController(c *fiber.Ctx) error
+	DeleteKamarController(c *fiber.Ctx) error
 
 	GetConfig() configuration.Config
 }

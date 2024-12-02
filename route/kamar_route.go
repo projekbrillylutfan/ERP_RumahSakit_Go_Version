@@ -13,4 +13,5 @@ func KamarRoute(app *fiber.App, ct controller.KamarController) {
 	kamarGroup.Get("/", ct.FindAllKamarController)
 	kamarGroup.Get("/:id", ct.FindByIdKamarController)
 	kamarGroup.Put("/:id", ct.UpdateKamarController)
+	kamarGroup.Delete("/:id", ct.DeleteKamarController)
 }
