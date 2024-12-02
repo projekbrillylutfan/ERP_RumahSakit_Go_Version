@@ -166,4 +166,4 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 
 ## Contoh Visual
 
-Untuk visualisasi diagram, gunakan alat seperti draw.io, Lucidchart, atau alat diagram lainnya untuk menggambar entitas sebagai kotak dan hubungkan dengan garis yang menunjukkan hubungan antar entitas.
+Untuk visualisasi diagram, gunakan alat seperti draw.io, Lucidchart, atau alat diagram lainnya untuk menggambar entitas sebagai kotak dan hubungkan dengan garis yang menunjukkan hubungan antar entitas cosmic.
