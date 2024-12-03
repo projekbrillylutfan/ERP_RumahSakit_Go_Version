@@ -19,6 +19,7 @@ type User struct {
 
 	// Relasi ke JanjiTemu
 	JanjiTemu []*JanjiTemu `gorm:"foreignKey:IDUser;references:ID"`
+	RawatInap []*RawatInap `gorm:"foreignKey:IDUser;references:ID"` // Relasi 1:N ke Rawat Inap
 }
 
 func (u *User) TableName() string {

@@ -8,6 +8,8 @@ type Kamar struct {
 	TarifPerHari float64   `gorm:"type:numeric(10,2);not null" json:"tarif_per_hari"`        // Tarif Per Hari
 	CreatedAt    time.Time `gorm:"type:timestamp;autoCreateTime" json:"created_at"`          // Waktu Pembuatan
 	UpdatedAt    time.Time `gorm:"type:timestamp;autoUpdateTime" json:"updated_at"`          // Waktu Pembaruan
+
+	RawatInap []*RawatInap `gorm:"foreignKey:IDKamar;references:IDKamar"` // Relasi 1:N ke Rawat Inap
 }
 
 func (k *Kamar) TableName() string {

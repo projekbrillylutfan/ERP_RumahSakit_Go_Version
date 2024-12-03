@@ -38,6 +38,7 @@ func main() {
 	perawatRepository := impl_repository.NewPerawatRepositoryImpl(database)
 	janjiTemuRepository := impl_repository.NewJanjiTemuRepositoryImpl(database)
 	kamarRepository := impl_repository.NewKamarRepositoryImpl(database)
+	rawatInapRepository := impl_repository.NewRawatInapRepositoryImpl(database)
 
 	// init user service
 	userService := impl_service.NewUserServiceImpl(&userRepository, &config, redisService, mailDialer)
@@ -45,6 +46,7 @@ func main() {
 	perawatService := impl_service.NewPerawatServiceImpl(&perawatRepository, &config, redisService, mailDialer)
 	janjiTemuService := impl_service.NewJanjiTemuServiceImpl(&janjiTemuRepository, &userRepository, &dokterRepository)
 	kamarService := impl_service.NewKamarServiceImpl(&kamarRepository)
+	rawatInapService := impl_service.NewRawatInapServiceImpl(&rawatInapRepository, &userRepository, &kamarRepository)
 
 	// init user controller
 	userController := impl_controller.NewUserControllerImpl(userService, config)
@@ -52,6 +54,7 @@ func main() {
 	perawatController := impl_controller.NewPerawatControllerImpl(perawatService, config)
 	janjiTemuController := impl_controller.NewJanjiTemuControllerImpl(janjiTemuService, config)
 	kamarController := impl_controller.NewKamarControllerImpl(kamarService, config)
+	rawatInapController := impl_controller.NewRawatInapControllerImpl(rawatInapService, config)
 
 	// init fiber
 	app := fiber.New(configuration.NewFiberConfiguration())
@@ -73,6 +76,8 @@ func main() {
 	route.JanjiTemu(app, janjiTemuController)
 	// init route kamar
 	route.KamarRoute(app, kamarController)
+	// init route rawat inap
+	route.RawatInapRoute(app, rawatInapController)
 
 	// server run 
 	err := app.Listen(config.Get("SERVER_PORT"))
