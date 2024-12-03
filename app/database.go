@@ -65,3 +65,7 @@ func NewDatabase(config configuration.Config) *gorm.DB {
 // migrate -database "postgres://postgres:admin@localhost:5432/erp_rumah_sakit_go_version?sslmode=disable" -path db/migrations down
 // migrate -database "postgres://postgres:admin@localhost:5432/erp_rumah_sakit_go_version?sslmode=disable" -path db/migrations version
 // migrate -database "postgres://postgres:admin@localhost:5432/erp_rumah_sakit_go_version?sslmode=disable" -path db/migrations force 20241115032443
+
+// compile go to dist folder
+// go build -o dist/your_app_name main
+// run go run dist/your_app_name
