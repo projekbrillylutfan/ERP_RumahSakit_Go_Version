@@ -96,6 +96,8 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 - **ID Kamar**: int
 - **Tanggal Masuk**: date
 - **Tanggal Keluar**: date
+- **Created At**: date
+- **Update At**: date
 
 ### 6. Kamar
 
