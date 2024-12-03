@@ -96,3 +96,51 @@ func (s *RawatInapServiceImpl) FindByIdRawatInapService(ctx context.Context, id 
 		TanggalKeluar: rawatInap.TanggalKeluar,
 	}
 }
+
+func (s *RawatInapServiceImpl) UpdateRawatInapService(ctx context.Context, RawatInap *dto.RawatInapModelCreateOrUpdate, id int64) *dto.RawatInapModelCreateOrUpdate {
+	configuration.Validate(RawatInap)
+
+	_, err :=s.RawatInapRepository.FindByIdRawatInapRepo(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	_, err = s.UserRepository.FindByIdUserRepo(ctx, RawatInap.IDUser)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	_, err = s.KamarRepository.FindByIdKamarRepository(ctx, RawatInap.IDKamar)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	rawatInapUpdate := &entity.RawatInap{
+		IDRawatInap:   id,
+		IDUser:        RawatInap.IDUser,
+		IDKamar:       RawatInap.IDKamar,
+		TanggalMasuk:  RawatInap.TanggalMasuk,
+		TanggalKeluar: RawatInap.TanggalKeluar,
+	}
+
+	s.RawatInapRepository.UpdateRawatInapRepo(ctx, rawatInapUpdate)
+
+	return &dto.RawatInapModelCreateOrUpdate{
+		IDUser:        RawatInap.IDUser,
+		IDKamar:       RawatInap.IDKamar,
+		TanggalMasuk:  RawatInap.TanggalMasuk,
+		TanggalKeluar: RawatInap.TanggalKeluar,
+	}
+}

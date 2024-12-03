@@ -41,3 +41,9 @@ func (r *RawatInapRepositoryImpl) FindByIdRawatInapRepo(ctx context.Context, id 
 	}
 	return &rawatInap, nil
 }
+
+func (r *RawatInapRepositoryImpl) UpdateRawatInapRepo(ctx context.Context, RawatInap *entity.RawatInap) *entity.RawatInap {
+	err := r.DB.WithContext(ctx).Where("id_rawat_inap = ?", RawatInap.IDRawatInap).Updates(RawatInap).Error
+	exception.PanicLogging(err)
+	return RawatInap
+}
