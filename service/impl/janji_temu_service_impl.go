@@ -9,6 +9,7 @@ import (
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/model/entity"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/repository"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/service"
+	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/utils"
 )
 
 func NewJanjiTemuServiceImpl(janjiTemuRepository *repository.JanjiTemuRepository, userRepository *repository.UserRepository, dokterRespository *repository.DokterRepository) service.JanjiTemuService {
@@ -82,8 +83,8 @@ func (s *JanjiTemuServiceImpl) FindByIdJanjiTemuService(ctx context.Context, id 
 
 	return &dto.JanjiTemuFindByIdResponse{
 		IDJanjiTemu: janjiTemu.IDJanjiTemu,
-		IDUser: dto.ConvertUserToModel(&janjiTemu.User),
-		IDDokter: dto.ConvertDokterToModel(&janjiTemu.Dokter),
+		IDUser: utils.ConvertUserToModel(&janjiTemu.User),
+		IDDokter: utils.ConvertDokterToModel(&janjiTemu.Dokter),
 		Tanggal:  janjiTemu.Tanggal,
 		Waktu:    janjiTemu.Waktu,
 	}

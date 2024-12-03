@@ -9,6 +9,7 @@ import (
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/model/entity"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/repository"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/service"
+	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/utils"
 )
 
 func NewRawatInapServiceImpl(rawatInapRepository *repository.RawatInapRepository, userRepository *repository.UserRepository, kamarRepository *repository.KamarRepository) service.RawatInapService {
@@ -75,4 +76,23 @@ func (s *RawatInapServiceImpl) FindAllRawatInapService(ctx context.Context) (res
 	}
 
 	return responses
+}
+
+func (s *RawatInapServiceImpl) FindByIdRawatInapService(ctx context.Context, id int64) *dto.RawatInapFindByIdResponse {
+	rawatInap, err := s.RawatInapRepository.FindByIdRawatInapRepo(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	return &dto.RawatInapFindByIdResponse{
+		IDRawatInap:   rawatInap.IDRawatInap,
+		IDUser:        utils.ConvertUserToModel(&rawatInap.User),
+		IDKamar:       utils.ConvertKamarToModel(&rawatInap.Kamar),
+		TanggalMasuk:  rawatInap.TanggalMasuk,
+		TanggalKeluar: rawatInap.TanggalKeluar,
+	}
 }

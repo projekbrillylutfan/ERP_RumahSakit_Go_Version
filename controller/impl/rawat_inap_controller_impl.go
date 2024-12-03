@@ -47,3 +47,14 @@ func (ct *RawatInapControllerImpl) FindAllRawatInapController(c *fiber.Ctx) erro
 		Data:    result,
 	})
 }
+
+func (ct *RawatInapControllerImpl) FindByIdRawatInapController(c *fiber.Ctx) error {
+	id := c.Params("id")
+	idInt64 := exception.ConversionErrorStrconv(id)
+	result := ct.RawatInapService.FindByIdRawatInapService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find rawat inap by id",
+		Data:    result,
+	})
+}

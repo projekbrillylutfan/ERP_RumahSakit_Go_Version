@@ -11,4 +11,5 @@ func RawatInapRoute(app *fiber.App, ct controller.RawatInapController) {
 
 	rawatInapGroup.Post("/", ct.CreateRawatInapController)
 	rawatInapGroup.Get("/", ct.FindAllRawatInapController)
+	rawatInapGroup.Get("/:id", ct.FindByIdRawatInapController)
 }
