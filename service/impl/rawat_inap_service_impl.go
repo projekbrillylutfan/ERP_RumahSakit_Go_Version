@@ -144,3 +144,15 @@ func (s *RawatInapServiceImpl) UpdateRawatInapService(ctx context.Context, Rawat
 		TanggalKeluar: RawatInap.TanggalKeluar,
 	}
 }
+
+func (s *RawatInapServiceImpl) DeleteRawatInapService(ctx context.Context, id int64) {
+	result, err := s.RawatInapRepository.FindByIdRawatInapRepo(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+	s.RawatInapRepository.DeleteRawatInapRepo(ctx, result)
+}

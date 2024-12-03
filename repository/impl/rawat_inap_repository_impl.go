@@ -47,3 +47,8 @@ func (r *RawatInapRepositoryImpl) UpdateRawatInapRepo(ctx context.Context, Rawat
 	exception.PanicLogging(err)
 	return RawatInap
 }
+
+func (r *RawatInapRepositoryImpl) DeleteRawatInapRepo(ctx context.Context, RawatInap *entity.RawatInap) {
+	err := r.DB.WithContext(ctx).Delete(&RawatInap).Error
+	exception.PanicLogging(err)
+}

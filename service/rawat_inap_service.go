@@ -11,4 +11,5 @@ type RawatInapService interface {
 	FindAllRawatInapService(ctx context.Context) (responses []*dto.RawatInapFindAllResponse)
 	FindByIdRawatInapService(ctx context.Context, id int64) *dto.RawatInapFindByIdResponse
 	UpdateRawatInapService(ctx context.Context, RawatInap *dto.RawatInapModelCreateOrUpdate, id int64) *dto.RawatInapModelCreateOrUpdate
+	DeleteRawatInapService(ctx context.Context, id int64)
 }

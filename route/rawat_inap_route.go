@@ -13,4 +13,5 @@ func RawatInapRoute(app *fiber.App, ct controller.RawatInapController) {
 	rawatInapGroup.Get("/", ct.FindAllRawatInapController)
 	rawatInapGroup.Get("/:id", ct.FindByIdRawatInapController)
 	rawatInapGroup.Put("/:id", ct.UpdateRawatInapController)
+	rawatInapGroup.Delete("/:id", ct.DeleteRawatInapController)
 }

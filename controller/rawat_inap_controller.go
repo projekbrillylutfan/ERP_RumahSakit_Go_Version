@@ -10,6 +10,7 @@ type RawatInapController interface {
 	FindAllRawatInapController(c *fiber.Ctx) error
 	FindByIdRawatInapController(c *fiber.Ctx) error
 	UpdateRawatInapController(c *fiber.Ctx) error
+	DeleteRawatInapController(c *fiber.Ctx) error
 
 	GetConfig() configuration.Config
 }

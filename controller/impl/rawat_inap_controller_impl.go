@@ -77,3 +77,15 @@ func (ct *RawatInapControllerImpl) UpdateRawatInapController(c *fiber.Ctx) error
 		Data:    result,
 	})
 }
+
+func (ct *RawatInapControllerImpl) DeleteRawatInapController(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	ct.RawatInapService.DeleteRawatInapService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success delete rawat inap",
+	})
+}
