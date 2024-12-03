@@ -92,7 +92,7 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 ### 5. Rawat Inap
 
 - **ID Rawat Inap**: int
-- **ID Pasien**: int
+- **ID User**: int
 - **ID Kamar**: int
 - **Tanggal Masuk**: date
 - **Tanggal Keluar**: date

@@ -10,4 +10,5 @@ func RawatInapRoute(app *fiber.App, ct controller.RawatInapController) {
 	rawatInapGroup := app.Group("/api/rawat-inap", middleware.AuthenticateJWT([]string{"ADMIN", "PERAWAT"}, ct.GetConfig()))
 
 	rawatInapGroup.Post("/", ct.CreateRawatInapController)
+	rawatInapGroup.Get("/", ct.FindAllRawatInapController)
 }

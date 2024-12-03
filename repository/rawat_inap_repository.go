@@ -8,4 +8,5 @@ import (
 
 type RawatInapRepository interface {
 	CreateRawatInapRepository(ctx context.Context, RawatInap *entity.RawatInap) *entity.RawatInap
+	FindAllRawatInapRepository(ctx context.Context) []*entity.RawatInap
 }

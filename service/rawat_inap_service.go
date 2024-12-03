@@ -8,4 +8,5 @@ import (
 
 type RawatInapService interface {
 	CreateRawatInapService(ctx context.Context, RawatInap *dto.RawatInapModelCreateOrUpdate) *dto.RawatInapModelCreateOrUpdate
+	FindAllRawatInapService(ctx context.Context) (responses []*dto.RawatInapFindAllResponse)
 }

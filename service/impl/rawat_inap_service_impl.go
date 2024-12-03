@@ -56,3 +56,23 @@ func (s *RawatInapServiceImpl) CreateRawatInapService(ctx context.Context, Rawat
 
 	return RawatInap
 }
+
+func (s *RawatInapServiceImpl) FindAllRawatInapService(ctx context.Context) (responses []*dto.RawatInapFindAllResponse) {
+	rawatInaps := s.RawatInapRepository.FindAllRawatInapRepository(ctx)
+
+	for _, rawatInap := range rawatInaps {
+		responses = append(responses, &dto.RawatInapFindAllResponse{
+			IDRawatInap:   rawatInap.IDRawatInap,
+			IDUser:        rawatInap.IDUser,
+			IDKamar:       rawatInap.IDKamar,
+			TanggalMasuk:  rawatInap.TanggalMasuk,
+			TanggalKeluar: rawatInap.TanggalKeluar,
+		})
+	}
+
+	if len(responses) == 0 {
+		return nil
+	}
+
+	return responses
+}

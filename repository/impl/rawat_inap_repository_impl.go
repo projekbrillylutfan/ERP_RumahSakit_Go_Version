@@ -24,3 +24,10 @@ func (r *RawatInapRepositoryImpl) CreateRawatInapRepository(ctx context.Context,
 	exception.PanicLogging(err)
 	return RawatInap
 }
+
+func (r *RawatInapRepositoryImpl) FindAllRawatInapRepository(ctx context.Context) []*entity.RawatInap {
+	var rawatInap []*entity.RawatInap
+	err := r.DB.WithContext(ctx).Find(&rawatInap).Error
+	exception.PanicLogging(err)
+	return rawatInap
+}

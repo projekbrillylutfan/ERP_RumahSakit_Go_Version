@@ -38,3 +38,12 @@ func (ct *RawatInapControllerImpl) CreateRawatInapController(c *fiber.Ctx) error
 		Data:    result,
 	})
 }
+
+func (ct *RawatInapControllerImpl) FindAllRawatInapController(c *fiber.Ctx) error {
+	result := ct.RawatInapService.FindAllRawatInapService(c.Context())
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find all rawat inap",
+		Data:    result,
+	})
+}
