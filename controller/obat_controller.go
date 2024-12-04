@@ -10,6 +10,7 @@ type ObatController interface {
 	FindAllObatController(c *fiber.Ctx) error
 	FindByIdObatController(c *fiber.Ctx) error
 	UpdateObatController(c *fiber.Ctx) error
+	DeleteObatController(c *fiber.Ctx) error
 
 	GetConfig() configuration.Config
 }

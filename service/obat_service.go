@@ -11,4 +11,5 @@ type ObatService interface {
 	FindAllObatService(ctx context.Context) (responses []*dto.ObatFindAllRes)
 	FindByIdObatService(ctx context.Context, id int64) *dto.ObatFindByIdRes
 	UpdateObatService(ctx context.Context, obat *dto.ObatCreateOrUpdateRequest, id int64) *dto.ObatCreateOrUpdateRequest
+	DeleteObatService(ctx context.Context, id int64)
 }

@@ -93,3 +93,15 @@ func (s *ObatServiceImpl) UpdateObatService(ctx context.Context, obat *dto.ObatC
 	s.ObatRepository.UpdateObatRepo(ctx, obatUpdate)
 	return obat
 }
+
+func (s *ObatServiceImpl) DeleteObatService(ctx context.Context, id int64) {
+	obat, err := s.ObatRepository.FindByIdObatRepo(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+	s.ObatRepository.DeleteObatRepo(ctx, obat)
+}

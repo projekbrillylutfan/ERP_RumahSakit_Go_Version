@@ -46,3 +46,8 @@ func (r *ObatRepositoryImpl) UpdateObatRepo(ctx context.Context, obat *entity.Ob
 	exception.PanicLogging(err)
 	return obat
 }
+
+func (r *ObatRepositoryImpl) DeleteObatRepo(ctx context.Context, obat *entity.Obat) {
+	err := r.DB.WithContext(ctx).Delete(&obat).Error
+	exception.PanicLogging(err)
+}
