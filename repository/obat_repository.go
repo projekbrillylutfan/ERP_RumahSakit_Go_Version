@@ -8,4 +8,5 @@ import (
 
 type ObatRepository interface {
 	CreateObatRepository(ctx context.Context, obat *entity.Obat) *entity.Obat
+	FindAllObatRepo(ctx context.Context) []*entity.Obat
 }

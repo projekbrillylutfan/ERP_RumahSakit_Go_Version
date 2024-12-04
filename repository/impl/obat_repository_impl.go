@@ -24,3 +24,9 @@ func (r *ObatRepositoryImpl) CreateObatRepository(ctx context.Context, obat *ent
 	exception.PanicLogging(err)
 	return obat
 }
+
+func (r *ObatRepositoryImpl) FindAllObatRepo(ctx context.Context) []*entity.Obat {
+	var obats []*entity.Obat
+	r.DB.WithContext(ctx).Find(&obats)
+	return obats
+}

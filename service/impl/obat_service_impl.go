@@ -31,3 +31,22 @@ func (s *ObatServiceImpl) CreateObatService(ctx context.Context, user *dto.ObatC
 	s.ObatRepository.CreateObatRepository(ctx, obatCreate)
 	return user
 }
+
+func (s *ObatServiceImpl) FindAllObatService(ctx context.Context) (responses []*dto.ObatFindAllRes) {
+	obats := s.ObatRepository.FindAllObatRepo(ctx)
+
+	for _, obat := range obats {
+		responses = append(responses, &dto.ObatFindAllRes{
+			IDObat:     obat.IDObat,
+			NamaObat:   obat.NamaObat,
+			Deskripsi:  obat.Deskripsi,
+			Harga:      obat.Harga,
+		})
+	}
+
+	if len(responses) == 0 {
+		return nil
+	}
+
+	return responses
+}

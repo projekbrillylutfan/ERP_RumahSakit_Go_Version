@@ -10,4 +10,5 @@ func ObatRoute(app *fiber.App, ct controller.ObatController) {
 	obatrouteGroup := app.Group("/api/obat", middleware.AuthenticateJWT([]string{"ADMIN"}, ct.GetConfig()))
 
 	obatrouteGroup.Post("/", ct.CreateObatController)
+	obatrouteGroup.Get("/", ct.FindAllObatController)
 }

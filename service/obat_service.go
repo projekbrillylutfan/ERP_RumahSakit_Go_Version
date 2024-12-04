@@ -8,4 +8,5 @@ import (
 
 type ObatService interface {
 	CreateObatService(ctx context.Context, user *dto.ObatCreateOrUpdateRequest) *dto.ObatCreateOrUpdateRequest
+	FindAllObatService(ctx context.Context) (responses []*dto.ObatFindAllRes)
 }

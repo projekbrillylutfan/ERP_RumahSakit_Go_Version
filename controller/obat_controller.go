@@ -7,6 +7,7 @@ import (
 
 type ObatController interface {
 	CreateObatController(c *fiber.Ctx) error
+	FindAllObatController(c *fiber.Ctx) error
 
 	GetConfig() configuration.Config
 }

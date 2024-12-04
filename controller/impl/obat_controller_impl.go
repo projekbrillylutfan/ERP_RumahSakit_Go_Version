@@ -38,3 +38,12 @@ func (ct *ObatControllerImpl) CreateObatController(c *fiber.Ctx) error {
 		Data:    resutl,
 	})
 }
+
+func (ct *ObatControllerImpl) FindAllObatController(c *fiber.Ctx) error {
+	result := ct.ObatService.FindAllObatService(c.Context())
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find all obat",
+		Data:    result,
+	})
+}
