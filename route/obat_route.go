@@ -12,4 +12,5 @@ func ObatRoute(app *fiber.App, ct controller.ObatController) {
 	obatrouteGroup.Post("/", ct.CreateObatController)
 	obatrouteGroup.Get("/", ct.FindAllObatController)
 	obatrouteGroup.Get("/:id", ct.FindByIdObatController)
+	obatrouteGroup.Put("/:id", ct.UpdateObatController)
 }

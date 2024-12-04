@@ -7,7 +7,8 @@ import (
 )
 
 type ObatService interface {
-	CreateObatService(ctx context.Context, user *dto.ObatCreateOrUpdateRequest) *dto.ObatCreateOrUpdateRequest
+	CreateObatService(ctx context.Context, obat *dto.ObatCreateOrUpdateRequest) *dto.ObatCreateOrUpdateRequest
 	FindAllObatService(ctx context.Context) (responses []*dto.ObatFindAllRes)
 	FindByIdObatService(ctx context.Context, id int64) *dto.ObatFindByIdRes
+	UpdateObatService(ctx context.Context, obat *dto.ObatCreateOrUpdateRequest, id int64) *dto.ObatCreateOrUpdateRequest
 }

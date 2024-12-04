@@ -21,16 +21,16 @@ type ObatServiceImpl struct {
 	ObatRepository repository.ObatRepository
 }
 
-func (s *ObatServiceImpl) CreateObatService(ctx context.Context, user *dto.ObatCreateOrUpdateRequest) *dto.ObatCreateOrUpdateRequest {
-	configuration.Validate(user)
+func (s *ObatServiceImpl) CreateObatService(ctx context.Context, obat *dto.ObatCreateOrUpdateRequest) *dto.ObatCreateOrUpdateRequest {
+	configuration.Validate(obat)
 	obatCreate := &entity.Obat{
-		NamaObat:   user.NamaObat,
-		Deskripsi:  user.Deskripsi,
-		Harga:      user.Harga,
+		NamaObat:   obat.NamaObat,
+		Deskripsi:  obat.Deskripsi,
+		Harga:      obat.Harga,
 	}
 
 	s.ObatRepository.CreateObatRepository(ctx, obatCreate)
-	return user
+	return obat
 }
 
 func (s *ObatServiceImpl) FindAllObatService(ctx context.Context) (responses []*dto.ObatFindAllRes) {
@@ -70,4 +70,26 @@ func (s *ObatServiceImpl) FindByIdObatService(ctx context.Context, id int64) *dt
 		CreatedAt:  obat.CreatedAt,
 		UpdatedAt:  obat.UpdatedAt,
 	}
+}
+
+func (s *ObatServiceImpl) UpdateObatService(ctx context.Context, obat *dto.ObatCreateOrUpdateRequest, id int64) *dto.ObatCreateOrUpdateRequest {
+	configuration.Validate(obat)
+
+	_, err := s.ObatRepository.FindByIdObatRepo(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	obatUpdate := &entity.Obat{
+		IDObat:     id,
+		NamaObat:   obat.NamaObat,
+		Deskripsi:  obat.Deskripsi,
+		Harga:      obat.Harga,
+	}
+	s.ObatRepository.UpdateObatRepo(ctx, obatUpdate)
+	return obat
 }

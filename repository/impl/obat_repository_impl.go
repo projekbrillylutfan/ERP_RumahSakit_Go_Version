@@ -40,3 +40,9 @@ func (r *ObatRepositoryImpl) FindByIdObatRepo(ctx context.Context, id int64) (*e
 	}
 	return obat, nil
 }
+
+func (r *ObatRepositoryImpl) UpdateObatRepo(ctx context.Context, obat *entity.Obat) *entity.Obat {
+	err := r.DB.WithContext(ctx).Where("id_obat = ?", obat.IDObat).Updates(obat).Error
+	exception.PanicLogging(err)
+	return obat
+}
