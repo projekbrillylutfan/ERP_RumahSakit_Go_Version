@@ -2,6 +2,7 @@ package impl_repository
 
 import (
 	"context"
+	"errors"
 
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/exception"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/model/entity"
@@ -29,4 +30,13 @@ func (r *ObatRepositoryImpl) FindAllObatRepo(ctx context.Context) []*entity.Obat
 	var obats []*entity.Obat
 	r.DB.WithContext(ctx).Find(&obats)
 	return obats
+}
+
+func (r *ObatRepositoryImpl) FindByIdObatRepo(ctx context.Context, id int64) (*entity.Obat, error) {
+	var obat *entity.Obat
+	result := r.DB.WithContext(ctx).Where("id_obat = ?", id).First(&obat)
+	if result.RowsAffected == 0 {
+		return nil, errors.New("obat not found")
+	}
+	return obat, nil
 }

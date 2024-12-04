@@ -47,3 +47,14 @@ func (ct *ObatControllerImpl) FindAllObatController(c *fiber.Ctx) error {
 		Data:    result,
 	})
 }
+
+func (ct *ObatControllerImpl) FindByIdObatController(c *fiber.Ctx) error {
+	id := c.Params("id")
+	idInt64 := exception.ConversionErrorStrconv(id)
+	result := ct.ObatService.FindByIdObatService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find obat by id",
+		Data:    result,
+	})
+}
