@@ -39,6 +39,7 @@ func main() {
 	janjiTemuRepository := impl_repository.NewJanjiTemuRepositoryImpl(database)
 	kamarRepository := impl_repository.NewKamarRepositoryImpl(database)
 	rawatInapRepository := impl_repository.NewRawatInapRepositoryImpl(database)
+	obatRepository := impl_repository.NewObatRepositoryImpl(database)
 
 	// init user service
 	userService := impl_service.NewUserServiceImpl(&userRepository, &config, redisService, mailDialer)
@@ -47,6 +48,7 @@ func main() {
 	janjiTemuService := impl_service.NewJanjiTemuServiceImpl(&janjiTemuRepository, &userRepository, &dokterRepository)
 	kamarService := impl_service.NewKamarServiceImpl(&kamarRepository)
 	rawatInapService := impl_service.NewRawatInapServiceImpl(&rawatInapRepository, &userRepository, &kamarRepository)
+	obatService := impl_service.NewObatServiceImpl(&obatRepository)
 
 	// init user controller
 	userController := impl_controller.NewUserControllerImpl(userService, config)
@@ -55,6 +57,7 @@ func main() {
 	janjiTemuController := impl_controller.NewJanjiTemuControllerImpl(janjiTemuService, config)
 	kamarController := impl_controller.NewKamarControllerImpl(kamarService, config)
 	rawatInapController := impl_controller.NewRawatInapControllerImpl(rawatInapService, config)
+	obatController := impl_controller.NewObatControllerImpl(obatService, config)
 
 	// init fiber
 	app := fiber.New(configuration.NewFiberConfiguration())
@@ -78,6 +81,8 @@ func main() {
 	route.KamarRoute(app, kamarController)
 	// init route rawat inap
 	route.RawatInapRoute(app, rawatInapController)
+	// init route obat
+	route.ObatRoute(app, obatController)
 
 	// server run 
 	err := app.Listen(config.Get("SERVER_PORT"))
