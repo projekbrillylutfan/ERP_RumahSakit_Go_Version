@@ -11,4 +11,5 @@ type ResepDetailService interface {
 	FindAllResepDetailService(ctx context.Context) (responses []*dto.ResepDetailFindAllRes)
 	FindByIdResepDetailService(ctx context.Context, id int64) *dto.ResepDetailFindByIdRes
 	UpdateResepDetailService(ctx context.Context, ResepDetail *dto.ResepDetailCreateOrUpdate, id int64) *dto.ResepDetailCreateOrUpdate
+	DeleteResepDetailService(ctx context.Context, id int64)
 }

@@ -75,3 +75,15 @@ func (ct *ResepDetailControllerImpl) UpdateResepDetailController(c *fiber.Ctx) e
 		Data:    result,
 	})
 }
+
+func (ct *ResepDetailControllerImpl) DeleteResepDetailController(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	ct.ResepDetailService.DeleteResepDetailService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code: 200,
+		Message: "success delete user",
+	})
+}

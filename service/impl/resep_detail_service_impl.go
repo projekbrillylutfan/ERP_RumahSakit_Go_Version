@@ -110,3 +110,15 @@ func (s *ResepDetailServiceImpl) UpdateResepDetailService(ctx context.Context, R
 		Jumlah: result.Jumlah,
 	}
 }
+
+func (s *ResepDetailServiceImpl) DeleteResepDetailService(ctx context.Context, id int64) {
+	result, err := s.ResepDetailRepository.FindByIdResepDetailRepo(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+	s.ResepDetailRepository.DeleteResepDetailRepo(ctx, result)
+}

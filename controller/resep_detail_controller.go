@@ -10,6 +10,7 @@ type ResepDetailController interface {
 	FindAllResepDetailController(c *fiber.Ctx) error
 	FindByIdResepDetailController(c *fiber.Ctx) error
 	UpdateResepDetailController(c *fiber.Ctx) error
+	DeleteResepDetailController(c *fiber.Ctx) error
 
 	GetConfig() configuration.Config
 }

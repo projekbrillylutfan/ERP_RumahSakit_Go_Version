@@ -11,4 +11,5 @@ type ResepDetailRepository interface {
 	FindAllResepDetailRepo(ctx context.Context) []*entity.ResepDetail
 	FindByIdResepDetailRepo(ctx context.Context, id int64) (*entity.ResepDetail, error)
 	UpdateResepDetailRepo(ctx context.Context, ResepDetail *entity.ResepDetail) *entity.ResepDetail
+	DeleteResepDetailRepo(ctx context.Context, ResepDetail *entity.ResepDetail)
 }

@@ -46,3 +46,8 @@ func (r *ResepDetailRepositoryImpl) UpdateResepDetailRepo(ctx context.Context, R
 	exception.PanicLogging(err)
 	return ResepDetail
 }
+
+func (r *ResepDetailRepositoryImpl) DeleteResepDetailRepo(ctx context.Context, ResepDetail *entity.ResepDetail) {
+	err := r.DB.WithContext(ctx).Delete(&ResepDetail).Error
+	exception.PanicLogging(err)
+}
