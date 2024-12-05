@@ -32,3 +32,12 @@ func ConvertKamarToModel(kamar *entity.Kamar) *dto.KamarFindAllResponse {
 		TarifPerHari: kamar.TarifPerHari,
 	}
 }
+
+func ConvertObatToModel(obat *entity.Obat) *dto.ObatFindAllRes {
+	return &dto.ObatFindAllRes{
+		IDObat:     obat.IDObat,
+		NamaObat:   obat.NamaObat,
+		Deskripsi:  obat.Deskripsi,
+		Harga:      obat.Harga,
+	}
+}

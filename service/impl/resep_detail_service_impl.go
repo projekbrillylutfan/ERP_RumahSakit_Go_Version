@@ -9,6 +9,7 @@ import (
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/model/entity"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/repository"
 	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/service"
+	"github.com/projekbrillylutfan/ERP_RumahSakit_Go_Version/utils"
 )
 
 func NewResepDetailServiceImpl(resepDetailRepository *repository.ResepDetailRepository, obatRepository *repository.ObatRepository) service.ResepDetailService {
@@ -54,4 +55,23 @@ func (s *ResepDetailServiceImpl) FindAllResepDetailService(ctx context.Context) 
 		})
 	}
 	return responses
+}
+
+func (s *ResepDetailServiceImpl) FindByIdResepDetailService(ctx context.Context, id int64) *dto.ResepDetailFindByIdRes {
+	resepDetail, err := s.ResepDetailRepository.FindByIdResepDetailRepo(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+	return &dto.ResepDetailFindByIdRes{
+		IDResepDetail: resepDetail.IDResepDetail,
+		IDObat: *utils.ConvertObatToModel(resepDetail.Obat),
+		Jumlah: resepDetail.Jumlah,
+		Harga: resepDetail.Harga,
+		CreatedAt: resepDetail.CreatedAt,
+		UpdatedAt: resepDetail.UpdatedAt,
+	}
 }

@@ -9,4 +9,5 @@ import (
 type ResepDetailService interface {
 	CreateResepDetailService(ctx context.Context, ResepDetail *dto.ResepDetailCreateOrUpdate) *dto.ResepDetailCreateOrUpdate
 	FindAllResepDetailService(ctx context.Context) (responses []*dto.ResepDetailFindAllRes)
+	FindByIdResepDetailService(ctx context.Context, id int64) *dto.ResepDetailFindByIdRes
 }

@@ -9,4 +9,5 @@ import (
 type ResepDetailRepository interface {
 	CreateResepDetailRepository(ctx context.Context, resepDetail *entity.ResepDetail) *entity.ResepDetail
 	FindAllResepDetailRepo(ctx context.Context) []*entity.ResepDetail
+	FindByIdResepDetailRepo(ctx context.Context, id int64) (*entity.ResepDetail, error)
 }

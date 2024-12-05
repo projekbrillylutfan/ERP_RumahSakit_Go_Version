@@ -47,3 +47,14 @@ func (ct *ResepDetailControllerImpl) FindAllResepDetailController(c *fiber.Ctx) 
 		Data:    result,
 	})
 }
+
+func (ct *ResepDetailControllerImpl) FindByIdResepDetailController(c *fiber.Ctx) error {
+	id := c.Params("id")
+	idInt64 := exception.ConversionErrorStrconv(id)
+	result := ct.ResepDetailService.FindByIdResepDetailService(c.Context(), idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code: 200,
+		Message: "succes find id resep detail",
+		Data: result,
+	})
+}
