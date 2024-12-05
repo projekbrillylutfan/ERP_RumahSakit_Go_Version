@@ -9,6 +9,8 @@ type Obat struct {
 	Harga      float64   `gorm:"type:numeric(10,2);not null" json:"harga"`              // Harga Obat
 	CreatedAt  time.Time `gorm:"type:timestamp;autoCreateTime" json:"created_at"`       // Waktu Pembuatan
 	UpdatedAt  time.Time `gorm:"type:timestamp;autoUpdateTime" json:"updated_at"`       // Waktu Pembaruan
+
+	ResepDetails []*ResepDetail `gorm:"foreignKey:IDObat;references:IDObat" json:"resep_details"`
 }
 
 func (o *Obat) TableName() string {

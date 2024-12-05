@@ -131,6 +131,8 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 - **ID Obat**: int
 - **Jumlah**: int
 - **Harga**: decimal
+- **Created At**: date
+- **Update At**: date
 
 ### 10. Tagihan
 
