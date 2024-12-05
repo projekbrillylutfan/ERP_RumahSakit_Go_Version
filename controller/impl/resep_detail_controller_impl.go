@@ -38,3 +38,12 @@ func (ct *ResepDetailControllerImpl) CreateResepDetailController(c *fiber.Ctx) e
 		Data:    req,
 	})
 }
+
+func (ct *ResepDetailControllerImpl) FindAllResepDetailController(c *fiber.Ctx) error {
+	result := ct.ResepDetailService.FindAllResepDetailService(c.Context())
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success find all resep detail",
+		Data:    result,
+	})
+}

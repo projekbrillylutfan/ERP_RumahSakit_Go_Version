@@ -24,3 +24,9 @@ func (r *ResepDetailRepositoryImpl) CreateResepDetailRepository(ctx context.Cont
 	exception.PanicLogging(err)
 	return resepDetail
 }
+
+func (r *ResepDetailRepositoryImpl) FindAllResepDetailRepo(ctx context.Context) []*entity.ResepDetail {
+	var resepDetail []*entity.ResepDetail
+	r.DB.WithContext(ctx).Find(&resepDetail)
+	return resepDetail
+}

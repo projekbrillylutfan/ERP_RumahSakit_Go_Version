@@ -42,3 +42,16 @@ func (s *ResepDetailServiceImpl) CreateResepDetailService(ctx context.Context, R
 	s.ResepDetailRepository.CreateResepDetailRepository(ctx, resepDetailCreate)
 	return ResepDetail
 }
+
+func (s *ResepDetailServiceImpl) FindAllResepDetailService(ctx context.Context) (responses []*dto.ResepDetailFindAllRes) {
+	resepDetail := s.ResepDetailRepository.FindAllResepDetailRepo(ctx)
+	for _, resepDetail := range resepDetail {
+		responses = append(responses, &dto.ResepDetailFindAllRes{
+			IDResepDetail: resepDetail.IDResepDetail,
+			IDObat:        resepDetail.IDObat,
+			Jumlah:        resepDetail.Jumlah,
+			Harga:         resepDetail.Harga,
+		})
+	}
+	return responses
+}

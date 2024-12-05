@@ -10,4 +10,5 @@ func ResepDetailRoute(app *fiber.App, ct controller.ResepDetailController) {
 	resepDetailGroup := app.Group("/api/resep-detail", middleware.AuthenticateJWT([]string{"ADMIN", "PERAWAT"}, ct.GetConfig()))
 
 	resepDetailGroup.Post("/", ct.CreateResepDetailController)
+	resepDetailGroup.Get("/", ct.FindAllResepDetailController)
 }
