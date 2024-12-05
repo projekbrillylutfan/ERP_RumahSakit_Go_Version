@@ -40,3 +40,9 @@ func (r *ResepDetailRepositoryImpl) FindByIdResepDetailRepo(ctx context.Context,
 	}
 	return resepDetail, nil
 }
+
+func (r *ResepDetailRepositoryImpl) UpdateResepDetailRepo(ctx context.Context, ResepDetail *entity.ResepDetail) *entity.ResepDetail {
+	err := r.DB.WithContext(ctx).Where("id_resep_detail", ResepDetail.IDResepDetail).Updates(&ResepDetail).Error
+	exception.PanicLogging(err)
+	return ResepDetail
+}

@@ -12,4 +12,5 @@ func ResepDetailRoute(app *fiber.App, ct controller.ResepDetailController) {
 	resepDetailGroup.Post("/", ct.CreateResepDetailController)
 	resepDetailGroup.Get("/", ct.FindAllResepDetailController)
 	resepDetailGroup.Get("/:id", ct.FindByIdResepDetailController)
+	resepDetailGroup.Put("/:id", ct.UpdateResepDetailController)
 }

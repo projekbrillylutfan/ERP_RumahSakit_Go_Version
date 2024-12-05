@@ -58,3 +58,20 @@ func (ct *ResepDetailControllerImpl) FindByIdResepDetailController(c *fiber.Ctx)
 		Data: result,
 	})
 }
+
+func (ct *ResepDetailControllerImpl) UpdateResepDetailController(c *fiber.Ctx) error {
+	var req *dto.ResepDetailCreateOrUpdate
+
+	id := c.Params("id")
+	err := c.BodyParser(&req)
+	exception.PanicLogging(err)
+
+	idInt64 := exception.ConversionErrorStrconv(id)
+
+	result := ct.ResepDetailService.UpdateResepDetailService(c.Context(), req, idInt64)
+	return c.Status(fiber.StatusOK).JSON(&dto.GeneralResponse{
+		Code:    200,
+		Message: "success update resep detail",
+		Data:    result,
+	})
+}

@@ -75,3 +75,38 @@ func (s *ResepDetailServiceImpl) FindByIdResepDetailService(ctx context.Context,
 		UpdatedAt: resepDetail.UpdatedAt,
 	}
 }
+
+func (s *ResepDetailServiceImpl) UpdateResepDetailService(ctx context.Context, ResepDetail *dto.ResepDetailCreateOrUpdate, id int64) *dto.ResepDetailCreateOrUpdate {
+	configuration.Validate(ResepDetail)
+
+	_, err := s.ResepDetailRepository.FindByIdResepDetailRepo(ctx, id)
+	if err != nil {
+		panic(
+			exception.NotFoundError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	_, err = s.ObatRepository.FindByIdObatRepo(ctx, ResepDetail.IDObat)
+	if err != nil {
+		panic(
+			exception.ConflictError{
+				Message: err.Error(),
+			},
+		)
+	}
+
+	resepDetail := &entity.ResepDetail{
+		IDResepDetail: id,
+		IDObat: ResepDetail.IDObat,
+		Jumlah: ResepDetail.Jumlah,
+	}
+
+	result := s.ResepDetailRepository.UpdateResepDetailRepo(ctx, resepDetail)
+
+	return &dto.ResepDetailCreateOrUpdate{
+		IDObat: result.IDObat,
+		Jumlah: result.Jumlah,
+	}
+}
