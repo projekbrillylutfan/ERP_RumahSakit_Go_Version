@@ -119,11 +119,13 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 ### 8. Resep
 
 - **ID Resep**: int
-- **ID Pasien**: int
+- **ID User**: int
 - **ID Dokter**: int
 - **ID Resep Detail**: int
 - **Tanggal**: date
 - **Total Harga**: decimal
+- **Created At**: date
+- **Update At**: date
 
 ### 9. Resep Detail
 
@@ -137,7 +139,7 @@ Diagram ini menggambarkan Entity-Relationship Diagram (ERD) untuk sistem manajem
 ### 10. Tagihan
 
 - **ID Tagihan**: int
-- **ID Pasien**: int
+- **ID User**: int
 - **Tanggal**: date
 - **Total Jumlah**: decimal
 
