@@ -30,28 +30,28 @@ FOR EACH ROW
 EXECUTE FUNCTION update_timestamp();
 
 -- Trigger function untuk menghitung total_harga
-CREATE OR REPLACE FUNCTION calculate_total_harga()
+CREATE OR REPLACE FUNCTION update_total_harga_resep()
 RETURNS TRIGGER AS $$
 BEGIN
-    -- Hitung total harga dari resep_detail berdasarkan id_resep
-    SELECT SUM(harga * jumlah)
-    INTO NEW.total_harga
-    FROM resep_detail
-    WHERE id_resep_detail IN (
-        SELECT id_resep_detail
-        FROM resep_detail
+    -- Hitung total harga dari semua resep_detail yang berkaitan dengan id_resep
+    UPDATE resep
+    SET total_harga = (
+        SELECT SUM(harga * jumlah) 
+        FROM resep_detail 
         WHERE id_resep_detail = NEW.id_resep_detail
-    );
+    )
+    WHERE id_resep = NEW.id_resep_detail;
 
-    -- Kembalikan baris baru setelah perubahan
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
--- Buat trigger untuk menjalankan fungsi di atas
-CREATE TRIGGER trigger_calculate_total_harga
-AFTER INSERT OR UPDATE OF id_resep_detail ON resep
+
+CREATE TRIGGER trigger_update_total_harga
+AFTER INSERT OR UPDATE OR DELETE
+ON resep_detail
 FOR EACH ROW
-EXECUTE FUNCTION calculate_total_harga();
+EXECUTE FUNCTION update_total_harga_resep();
+
 
 
