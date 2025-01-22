@@ -16,6 +16,7 @@ type Dokter struct {
 
 	// Relasi ke JanjiTemu
 	JanjiTemu []*JanjiTemu `gorm:"foreignKey:IDDokter;references:ID"`
+	Resep     []*Resep     `gorm:"foreignKey:IDDokter;references:ID"`
 }
 
 // Custom Table Name (opsional jika nama tabel tidak sama dengan nama struct)

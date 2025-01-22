@@ -41,6 +41,7 @@ func main() {
 	rawatInapRepository := impl_repository.NewRawatInapRepositoryImpl(database)
 	obatRepository := impl_repository.NewObatRepositoryImpl(database)
 	resepDetailRepository := impl_repository.NewResepDetailRepositoryImpl(database)
+	resepRepository := impl_repository.NewResepRepositoryImpl(database)
 
 	// init user service
 	userService := impl_service.NewUserServiceImpl(&userRepository, &config, redisService, mailDialer)
@@ -51,6 +52,7 @@ func main() {
 	rawatInapService := impl_service.NewRawatInapServiceImpl(&rawatInapRepository, &userRepository, &kamarRepository)
 	obatService := impl_service.NewObatServiceImpl(&obatRepository)
 	resepDetailService := impl_service.NewResepDetailServiceImpl(&resepDetailRepository, &obatRepository)
+	resepService := impl_service.NewResepServiceImpl(&resepRepository, &userRepository, &dokterRepository, &resepDetailRepository)
 
 	// init user controller
 	userController := impl_controller.NewUserControllerImpl(userService, config)
@@ -61,6 +63,7 @@ func main() {
 	rawatInapController := impl_controller.NewRawatInapControllerImpl(rawatInapService, config)
 	obatController := impl_controller.NewObatControllerImpl(obatService, config)
 	resepDetailController := impl_controller.NewResepDetailControllerImpl(resepDetailService, config)
+	resepController := impl_controller.NewResepControllerImpl(resepService, config)
 
 	// init fiber
 	app := fiber.New(configuration.NewFiberConfiguration())
@@ -88,6 +91,8 @@ func main() {
 	route.ObatRoute(app, obatController)
 	// init route resep detail
 	route.ResepDetailRoute(app, resepDetailController)
+	// init route resep
+	route.ResepRoute(app, resepController)
 
 	// server run 
 	err := app.Listen(config.Get("SERVER_PORT"))
